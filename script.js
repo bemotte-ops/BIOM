@@ -76,7 +76,7 @@ const questions = [
   ]}
 ];
 
-// === ПРОДУКТЫ (полные описания из файлов) ===
+// === ПРОДУКТЫ ===
 const products = {
   "OGSM": {
     title: "Адаптивная система стратегического управления OGSM",
@@ -162,7 +162,7 @@ const weights = {
   "12D": { F_SYS: 0, F_AUTO: 0, F_GROW: 0 }
 };
 
-// === ОПРЕДЕЛЕНИЕ ПРОФИЛЯ ===
+// === ЛОГИКА ===
 function calculateProfile(answers) {
   let scores = { agility: 0, partnership: 0, automation: 0, system: 0, F_SYS: 0, F_AUTO: 0, F_GROW: 0 };
   answers.forEach(ans => {
@@ -186,73 +186,16 @@ function generateReport(businessProfile, financeProfile) {
   if (financeProfile === "F1") return { diagnosis: "Отсутствует системный финансовый менеджмент. Решения принимаются интуитивно, высокие риски кассовых разрывов.", recommendation: "Срочное построение финансовой функции с нуля.", productKey: "F1" };
   if (financeProfile === "F2") return { diagnosis: "Финансы не стали инструментом для роста. Непрозрачность блокирует масштабирование.", recommendation: "Проведение аудита и оптимизация процессов.", productKey: "F2" };
   if (financeProfile === "F3") return { diagnosis: "Квалифицированные сотрудники тонут в рутине. Высоки операционные риски.", recommendation: "Внедрение AI и цифровых инструментов для автоматизации.", productKey: "F3" };
-  
+
   const map = { agility: "Agile", partnership: "Academy", automation: "F3", system: "OGSM" };
   const key = map[businessProfile] || "OGSM";
   return {
-    diagnosis: "Выявлен профиль: " + (businessProfile === "agility" ? "Гибкость и скорость" : 
-              businessProfile === "partnership" ? "Партнерство" : 
+    diagnosis: "Выявлен профиль: " + (businessProfile === "agility" ? "Гибкость и скорость" :
+              businessProfile === "partnership" ? "Партнерство" :
               businessProfile === "automation" ? "Автоматизация" : "Системность"),
     recommendation: "Рекомендуем продукт: " + products[key].title,
     productKey: key
   };
-}
-
-// === ОТОБРАЖЕНИЕ РЕКОМЕНДАЦИИ С КАРТОЧКОЙ ===
-function showRecommendation(report) {
-  const p = products[report.productKey];
-  document.getElementById('resultText').innerHTML = `
-    <p><strong>Диагноз:</strong> ${report.diagnosis}</p>
-    <p><strong>Рекомендация:</strong> ${report.recommendation}</p>
-    <div class="product-item" style="margin-top:24px; background:#f8f9ff; padding:16px; border-radius:12px;">
-      <h3>${p.title}</h3>
-      <p>${p.short}</p>
-      <button class="btn product-toggle-rec" data-key="${report.productKey}">Подробнее</button>
-      <div class="product-full-rec" id="rec-full-${report.productKey}" style="display:none; margin-top:16px; white-space:pre-line;">
-        ${p.full}
-      </div>
-    </div>
-  `;
-
-  document.querySelector('.product-toggle-rec').addEventListener('click', function() {
-    const key = this.getAttribute('data-key');
-    const full = document.getElementById(`rec-full-${key}`);
-    const isHidden = full.style.display === 'none';
-    full.style.display = isHidden ? 'block' : 'none';
-    this.textContent = isHidden ? 'Скрыть' : 'Подробнее';
-  });
-}
-
-// === КАТАЛОГ ПРОДУКТОВ ===
-function renderAllProducts() {
-  const container = document.getElementById('productsList');
-  if (!container) return;
-  container.innerHTML = '';
-
-  for (let key in products) {
-    const p = products[key];
-    const card = document.createElement('div');
-    card.className = 'product-item';
-    card.innerHTML = `
-      <h3>${p.title}</h3>
-      <p>${p.short}</p>
-      <button class="btn product-toggle" data-key="${key}">Подробнее</button>
-      <div class="product-full" id="full-${key}" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid #eee; white-space:pre-line;">
-        ${p.full}
-      </div>
-    `;
-    container.appendChild(card);
-  }
-
-  document.querySelectorAll('.product-toggle').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const key = this.getAttribute('data-key');
-      const full = document.getElementById(`full-${key}`);
-      const isHidden = full.style.display === 'none';
-      full.style.display = isHidden ? 'block' : 'none';
-      this.textContent = isHidden ? 'Скрыть' : 'Подробнее';
-    });
-  });
 }
 
 // === ПОШАГОВЫЙ ОПРОСНИК ===
@@ -290,7 +233,10 @@ document.getElementById('nextBtn').addEventListener('click', () => {
     const arr = Object.values(answers);
     const { businessProfile, financeProfile } = calculateProfile(arr);
     const rep = generateReport(businessProfile, financeProfile);
-    showRecommendation(rep);
+    document.getElementById('resultText').innerHTML = `
+      <p><strong>Диагноз:</strong> ${rep.diagnosis}</p>
+      <p><strong>Рекомендация:</strong> ${rep.recommendation}</p>
+    `;
     document.getElementById('recommendations').style.display = 'block';
     document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
   }
@@ -302,14 +248,5 @@ document.getElementById('prevBtn').addEventListener('click', () => {
     showQuestion(currentStep);
   }
 });
-
-// === КНОПКА "ПОКАЗАТЬ ВСЕ ПРОДУКТЫ" ===
-document.getElementById('showAllProducts')?.addEventListener('click', () => {
-  document.getElementById('allProducts').scrollIntoView({ behavior: 'smooth' });
-});
-
-// === ЗАПУСК ===
-renderAllProducts();
-showQuestion(0);
 
 });
