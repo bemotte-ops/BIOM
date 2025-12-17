@@ -197,6 +197,9 @@ function generateReport(businessProfile, financeProfile) {
 let currentStep = 0;
 const answers = {};
 
+// Инициализация опросника при загрузке страницы
+showQuestion(currentStep);
+
 function showQuestion(step) {
   const q = questions[step];
   let html = `<p><strong>${q.text}</strong></p><div style="margin-top:12px;">`;
