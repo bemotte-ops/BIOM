@@ -76,6 +76,16 @@ function renderAllProducts() {
   });
 }
 
+// === БУРГЕР-МЕНЮ ===
+const burger = document.querySelector('.burger-menu');
+const navMenu = document.querySelector('.nav-menu');
+if (burger && navMenu) {
+  burger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    burger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+  });
+}
+  
 // === ЗАПУСК ===
 renderAllProducts();
 
