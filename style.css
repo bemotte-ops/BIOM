@@ -11,7 +11,7 @@
 }
 
 body {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', Arial, sans-serif;
   font-weight: 500;
   line-height: 1.7;
   color: #2d3748;
@@ -20,7 +20,7 @@ body {
 
 /* Заголовки — Patrick Hand */
 h1, h2, h3 {
-  font-family: 'Patrick Hand', cursive;
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
   color: #2c3e50;
   text-align: center;
   margin: 32px auto 24px;
@@ -314,7 +314,7 @@ input[type="radio"] {
 }
 
 .footer-top h3 {
-  font-family: 'Patrick Hand', cursive;
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
   font-size: 24px;
   margin: 0;
   color: white;
@@ -339,9 +339,10 @@ input[type="radio"] {
 
 .footer-separator {
   width: 200px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.3);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.5);
   margin: 12px auto;
+  border: none;
 }
 
 .footer-contact-item {
@@ -382,9 +383,13 @@ input[type="radio"] {
   opacity: 0.85;
 }
 
-/* Гарантированно белый текст во всём футере */
+/* Гарантированно белый текст во всём футере (кроме разделителя) */
 .footer * {
   color: white !important;
+}
+
+.footer-separator {
+  background: rgba(255, 255, 255, 0.3) !important;
 }
 
 /* Картинка в блоке "Наш подход" */
