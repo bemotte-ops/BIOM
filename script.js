@@ -1,128 +1,82 @@
-// === ВОПРОСЫ ИЗ ФАЙЛА ===
+document.addEventListener('DOMContentLoaded', function () {
+
+// === ВОПРОСЫ ===
 const questions = [
-  {
-    id: 1,
-    text: "Как в вашей компании обычно реализуются новые проекты или стратегические инициативы?",
-    options: [
-      { value: "1A", text: "По четкому годовому плану — отклонения минимальны, приоритеты определены надолго" },
-      { value: "1B", text: "Мы пробуем много идей, но не все \"взлетают\" — сложно доводить до результата" },
-      { value: "1C", text: "Есть четкий фокус на 2-3 главных направления — гибко распределяем ресурсы между ними" },
-      { value: "1D", text: "Точечные решения под задачи — нет единой системы управления проектами" }
-    ]
-  },
-  {
-    id: 2,
-    text: "Как строится взаимодействие с ключевыми клиентами или партнерами?",
-    options: [
-      { value: "2A", text: "В основном транзакционно — обсуждаем конкретные сделки и условия" },
-      { value: "2B", text: "Стараемся выстраивать долгосрочные отношения — но нет системного подхода" },
-      { value: "2C", text: "Совместно планируем развитие — есть партнерские программы и общие цели" },
-      { value: "2D", text: "Каждый менеджер строит отношения по-своему — зависит от личности" }
-    ]
-  },
-  {
-    id: 3,
-    text: "Где больше всего времени теряют ваши сотрудники (включая руководство)?",
-    options: [
-      { value: "3A", text: "В согласованиях и ожидании решений — много встреч, но мало действий" },
-      { value: "3B", text: "В рутинной работе с документами — поиск, проверка, перенос данных" },
-      { value: "3C", text: "В решении внезапных проблем — \"тушим пожары\" вместо развития" },
-      { value: "3D", text: "В сборе информации для отчетов — данные разрознены" }
-    ]
-  },
-  {
-    id: 4,
-    text: "Когда вы в последний раз кардинально меняли подход к работе с клиентами?",
-    options: [
-      { value: "4A", text: "В этом году — постоянно тестируем новое" },
-      { value: "4B", text: "Несколько лет назад — работаем по проверенной схеме" },
-      { value: "4C", text: "Планируем изменения — но не знаем с чего начать" },
-      { value: "4D", text: "Клиенты разные — подход индивидуальный" }
-    ]
-  },
-  {
-    id: 5,
-    text: "Как вы принимаете решения о развитии продуктов или услуг?",
-    options: [
-      { value: "5A", text: "На основе данных и экспериментов — тестируем гипотезы" },
-      { value: "5B", text: "По решению руководства — опыт и интуиция" },
-      { value: "5C", text: "Изучаем конкурентов — повторяем успешное" },
-      { value: "5D", text: "По запросам ключевых клиентов" }
-    ]
-  },
-  {
-    id: 6,
-    text: "Что происходит, когда проект сталкивается с серьезным препятствием?",
-    options: [
-      { value: "6A", text: "Быстро перестраиваемся — пробуем другой подход" },
-      { value: "6B", text: "Собираем совещания — ищем виноватых" },
-      { value: "6C", text: "Эскалируем руководству — ждем решения" },
-      { value: "6D", text: "Анализируем системно — устраняем причину" }
-    ]
-  },
-  {
-    id: 7,
-    text: "Как вы оцениваете эффективность бизнеса?",
-    options: [
-      { value: "7A", text: "По финансовым показателям — прибыль, выручка" },
-      { value: "7B", text: "По выполнению планов — KPI сотрудников" },
-      { value: "7C", text: "По динамике ключевых процессов — автоматические дашборды" },
-      { value: "7D", text: "По удовлетворенности клиентов — NPS, лояльность" }
-    ]
-  },
-  {
-    id: 8,
-    text: "Как вы получаете информацию для принятия ключевых управленческих решений (инвестиции, развитие продуктов, сокращение затрат)?",
-    options: [
-      { value: "8A", text: "Из регулярных управленческих отчетов (ОПУ, ДДС, прогнозы), которые готовятся ежемесячно." },
-      { value: "8B", text: "Запрашиваем данные у бухгалтерии или финансового отдела по мере необходимости — иногда приходится ждать." },
-      { value: "8C", text: "Полагаемся на операционные данные (продажи) и интуицию, точных финансовых моделей нет." },
-      { value: "8D", text: "Используем единую BI-систему или дашборды, где видна полная картина в реальном времени." }
-    ]
-  },
-  {
-    id: 9,
-    text: "Как организовано управление денежными потоками (казначейство) в вашей компании?",
-    options: [
-      { value: "9A", text: "Есть платежный календарь и система прогнозирования, кассовые разрывы планируем заранее." },
-      { value: "9B", text: "Контролируем по факту, иногда возникают срочные потребности в деньгах." },
-      { value: "9C", text: "Это забота бухгалтера/гендиректора, общего понимания будущих платежей нет." },
-      { value: "9D", text: "Автоматизировано через интеграцию 1С/банк-клиентов, процессы почти не требуют ручного вмешательства." }
-    ]
-  },
-  {
-    id: 10,
-    text: "Насколько ваша финансовая команда (или бухгалтер) загружена рутинной работой?",
-    options: [
-      { value: "10A", text: "Есть время на анализ — автоматизировали основные процессы (счета, акты, первичка)." },
-      { value: "10B", text: "Постоянно заняты обработкой документов и ответами на вопросы из других отделов." },
-      { value: "10C", text: "Справляются, но все в ручном режиме (Excel, пересылка файлов), ошибки случаются." },
-      { value: "10D", text: "Нет отдельной финансовой команды, бухгалтер на аутсорсе, управленческих данных не хватает." }
-    ]
-  },
-  {
-    id: 11,
-    text: "Когда вы в последний раз проводили аудит финансовых процессов на предмет потерь, рисков или неэффективности?",
-    options: [
-      { value: "11A", text: "В последние 6-12 месяцев — это регулярная практика." },
-      { value: "11B", text: "Несколько лет назад, при внедрении 1С или смене бухгалтера." },
-      { value: "11C", text: "Никогда не проводили системно, но чувствуем, что есть проблемные места." },
-      { value: "11D", text: "Постоянно видим точечные проблемы, но нет ресурса на их системное решение." }
-    ]
-  },
-  {
-    id: 12,
-    text: "Как вы оцениваете, готовы ли финансы компании к масштабированию, привлечению инвестиций или due diligence?",
-    options: [
-      { value: "12A", text: "Уверены — учет прозрачен, процессы задокументированы, отчетность соответствует стандартам." },
-      { value: "12B", text: "Есть сомнения — инвесторы могут задать неудобные вопросы по данным." },
-      { value: "12C", text: "Это станет проблемой — финансы не структурированы для такого скачка." },
-      { value: "12D", text: "Не задумывались — этот вопрос встанет по факту." }
-    ]
-  }
+  { id: 1, text: "Как в вашей компании обычно реализуются новые проекты или стратегические инициативы?", options: [
+    { value: "1A", text: "По четкому годовому плану — отклонения минимальны, приоритеты определены надолго" },
+    { value: "1B", text: "Мы пробуем много идей, но не все \"взлетают\" — сложно доводить до результата" },
+    { value: "1C", text: "Есть четкий фокус на 2-3 главных направления — гибко распределяем ресурсы между ними" },
+    { value: "1D", text: "Точечные решения под задачи — нет единой системы управления проектами" }
+  ]},
+  { id: 2, text: "Как строится взаимодействие с ключевыми клиентами или партнерами?", options: [
+    { value: "2A", text: "В основном транзакционно — обсуждаем конкретные сделки и условия" },
+    { value: "2B", text: "Стараемся выстраивать долгосрочные отношения — но нет системного подхода" },
+    { value: "2C", text: "Совместно планируем развитие — есть партнерские программы и общие цели" },
+    { value: "2D", text: "Каждый менеджер строит отношения по-своему — зависит от личности" }
+  ]},
+  { id: 3, text: "Где больше всего времени теряют ваши сотрудники (включая руководство)?", options: [
+    { value: "3A", text: "В согласованиях и ожидании решений — много встреч, но мало действий" },
+    { value: "3B", text: "В рутинной работе с документами — поиск, проверка, перенос данных" },
+    { value: "3C", text: "В решении внезапных проблем — \"тушим пожары\" вместо развития" },
+    { value: "3D", text: "В сборе информации для отчетов — данные разрознены" }
+  ]},
+  { id: 4, text: "Когда вы в последний раз кардинально меняли подход к работе с клиентами?", options: [
+    { value: "4A", text: "В этом году — постоянно тестируем новое" },
+    { value: "4B", text: "Несколько лет назад — работаем по проверенной схеме" },
+    { value: "4C", text: "Планируем изменения — но не знаем с чего начать" },
+    { value: "4D", text: "Клиенты разные — подход индивидуальный" }
+  ]},
+  { id: 5, text: "Как вы принимаете решения о развитии продуктов или услуг?", options: [
+    { value: "5A", text: "На основе данных и экспериментов — тестируем гипотезы" },
+    { value: "5B", text: "По решению руководства — опыт и интуиция" },
+    { value: "5C", text: "Изучаем конкурентов — повторяем успешное" },
+    { value: "5D", text: "По запросам ключевых клиентов" }
+  ]},
+  { id: 6, text: "Что происходит, когда проект сталкивается с серьезным препятствием?", options: [
+    { value: "6A", text: "Быстро перестраиваемся — пробуем другой подход" },
+    { value: "6B", text: "Собираем совещания — ищем виноватых" },
+    { value: "6C", text: "Эскалируем руководству — ждем решения" },
+    { value: "6D", text: "Анализируем системно — устраняем причину" }
+  ]},
+  { id: 7, text: "Как вы оцениваете эффективность бизнеса?", options: [
+    { value: "7A", text: "По финансовым показателям — прибыль, выручка" },
+    { value: "7B", text: "По выполнению планов — KPI сотрудников" },
+    { value: "7C", text: "По динамике ключевых процессов — автоматические дашборды" },
+    { value: "7D", text: "По удовлетворенности клиентов — NPS, лояльность" }
+  ]},
+  { id: 8, text: "Как вы получаете информацию для принятия ключевых управленческих решений (инвестиции, развитие продуктов, сокращение затрат)?", options: [
+    { value: "8A", text: "Из регулярных управленческих отчетов (ОПУ, ДДС, прогнозы), которые готовятся ежемесячно." },
+    { value: "8B", text: "Запрашиваем данные у бухгалтерии или финансового отдела по мере необходимости — иногда приходится ждать." },
+    { value: "8C", text: "Полагаемся на операционные данные (продажи) и интуицию, точных финансовых моделей нет." },
+    { value: "8D", text: "Используем единую BI-систему или дашборды, где видна полная картина в реальном времени." }
+  ]},
+  { id: 9, text: "Как организовано управление денежными потоками (казначейство) в вашей компании?", options: [
+    { value: "9A", text: "Есть платежный календарь и система прогнозирования, кассовые разрывы планируем заранее." },
+    { value: "9B", text: "Контролируем по факту, иногда возникают срочные потребности в деньгах." },
+    { value: "9C", text: "Это забота бухгалтера/гендиректора, общего понимания будущих платежей нет." },
+    { value: "9D", text: "Автоматизировано через интеграцию 1С/банк-клиентов, процессы почти не требуют ручного вмешательства." }
+  ]},
+  { id: 10, text: "Насколько ваша финансовая команда (или бухгалтер) загружена рутинной работой?", options: [
+    { value: "10A", text: "Есть время на анализ — автоматизировали основные процессы (счета, акты, первичка)." },
+    { value: "10B", text: "Постоянно заняты обработкой документов и ответами на вопросы из других отделов." },
+    { value: "10C", text: "Справляются, но все в ручном режиме (Excel, пересылка файлов), ошибки случаются." },
+    { value: "10D", text: "Нет отдельной финансовой команды, бухгалтер на аутсорсе, управленческих данных не хватает." }
+  ]},
+  { id: 11, text: "Когда вы в последний раз проводили аудит финансовых процессов на предмет потерь, рисков или неэффективности?", options: [
+    { value: "11A", text: "В последние 6-12 месяцев — это регулярная практика." },
+    { value: "11B", text: "Несколько лет назад, при внедрении 1С или смене бухгалтера." },
+    { value: "11C", text: "Никогда не проводили системно, но чувствуем, что есть проблемные места." },
+    { value: "11D", text: "Постоянно видим точечные проблемы, но нет ресурса на их системное решение." }
+  ]},
+  { id: 12, text: "Как вы оцениваете, готовы ли финансы компании к масштабированию, привлечению инвестиций или due diligence?", options: [
+    { value: "12A", text: "Уверены — учет прозрачен, процессы задокументированы, отчетность соответствует стандартам." },
+    { value: "12B", text: "Есть сомнения — инвесторы могут задать неудобные вопросы по данным." },
+    { value: "12C", text: "Это станет проблемой — финансы не структурированы для такого скачка." },
+    { value: "12D", text: "Не задумывались — этот вопрос встанет по факту." }
+  ]}
 ];
 
-// === ПОЛНЫЕ ОПИСАНИЯ ПРОДУКТОВ ===
+// === ПРОДУКТЫ ===
 const products = {
   "OGSM": {
     title: "Адаптивная система стратегического управления OGSM",
@@ -156,8 +110,8 @@ const products = {
   }
 };
 
-// === ВЕСА (из файла) ===
-const weights = {
+// === ВЕСА ===
+const weights = /* ... как в предыдущем файле ... */ {
   "1A": { agility: 0, partnership: 0, automation: 1, system: 2 },
   "1B": { agility: 3, partnership: 1, automation: 0, system: 0 },
   "1C": { agility: 2, partnership: 2, automation: 0, system: 3 },
@@ -208,71 +162,79 @@ const weights = {
   "12D": { F_SYS: 0, F_AUTO: 0, F_GROW: 0 }
 };
 
-// === ЛОГИКА ОПРЕДЕЛЕНИЯ ПРОФИЛЯ ===
+// === ЛОГИКА ===
 function calculateProfile(answers) {
-  let scores = {
-    agility: 0, partnership: 0, automation: 0, system: 0,
-    F_SYS: 0, F_AUTO: 0, F_GROW: 0
-  };
-
+  let scores = { agility: 0, partnership: 0, automation: 0, system: 0, F_SYS: 0, F_AUTO: 0, F_GROW: 0 };
   answers.forEach(ans => {
     const w = weights[ans];
-    if (w) {
-      for (let key in w) {
-        scores[key] += w[key];
-      }
-    }
+    if (w) for (let key in w) scores[key] += w[key];
   });
 
-  // Бизнес-профиль
   const businessKeys = ['agility', 'partnership', 'automation', 'system'];
-  const businessScores = businessKeys.reduce((obj, key) => ({ ...obj, [key]: scores[key] }), {});
+  const businessScores = businessKeys.reduce((obj, key) => ({...obj, [key]: scores[key]}), {});
   const maxBusiness = Math.max(...Object.values(businessScores));
   let businessProfile = Object.keys(businessScores).find(k => businessScores[k] === maxBusiness);
 
-  // Финансовый профиль
-  let financeProfile = "F2"; // по умолчанию
+  let financeProfile = "F2";
   if (scores.F_SYS <= 2 && scores.F_AUTO <= 1 && scores.F_GROW <= 1) financeProfile = "F1";
   if (scores.F_AUTO >= 3 && scores.F_SYS >= 2) financeProfile = "F3";
 
-  return { businessProfile, financeProfile, scores };
+  return { businessProfile, financeProfile };
 }
 
 function generateReport(businessProfile, financeProfile) {
-  // Приоритет — финансовые проблемы
-  if (financeProfile === "F1") {
-    return {
-      diagnosis: "Отсутствует системный финансовый менеджмент. Решения принимаются интуитивно, высокие риски кассовых разрывов.",
-      recommendation: "Срочное построение финансовой функции с нуля.",
-      productKey: "F1"
-    };
-  } else if (financeProfile === "F2") {
-    return {
-      diagnosis: "Финансы не стали инструментом для роста. Непрозрачность блокирует масштабирование.",
-      recommendation: "Проведение аудита и оптимизация процессов.",
-      productKey: "F2"
-    };
-  } else if (financeProfile === "F3") {
-    return {
-      diagnosis: "Квалифицированные сотрудники тонут в рутине. Высоки операционные риски.",
-      recommendation: "Внедрение AI и цифровых инструментов для автоматизации.",
-      productKey: "F3"
-    };
-  } else {
-    // Только если финансы в порядке — смотрим бизнес
-    const map = { agility: "Agile", partnership: "Academy", automation: "F3", system: "OGSM" };
-    const productKey = map[businessProfile] || "OGSM";
-    return {
-      diagnosis: "Выявлен профиль: " + (businessProfile === "agility" ? "Гибкость и скорость" :
-                businessProfile === "partnership" ? "Партнерство" :
-                businessProfile === "automation" ? "Автоматизация" : "Системность"),
-      recommendation: "Рекомендуем продукт: " + products[productKey].title,
-      productKey: productKey
-    };
-  }
+  if (financeProfile === "F1") return { diagnosis: "Отсутствует системный финансовый менеджмент. Решения принимаются интуитивно, высокие риски кассовых разрывов.", recommendation: "Срочное построение финансовой функции с нуля.", productKey: "F1" };
+  if (financeProfile === "F2") return { diagnosis: "Финансы не стали инструментом для роста. Непрозрачность блокирует масштабирование.", recommendation: "Проведение аудита и оптимизация процессов.", productKey: "F2" };
+  if (financeProfile === "F3") return { diagnosis: "Квалифицированные сотрудники тонут в рутине. Высоки операционные риски.", recommendation: "Внедрение AI и цифровых инструментов для автоматизации.", productKey: "F3" };
+  
+  const map = { agility: "Agile", partnership: "Academy", automation: "F3", system: "OGSM" };
+  const key = map[businessProfile] || "OGSM";
+  return {
+    diagnosis: "Выявлен профиль: " + (businessProfile === "agility" ? "Гибкость и скорость" : 
+              businessProfile === "partnership" ? "Партнерство" : 
+              businessProfile === "automation" ? "Автоматизация" : "Системность"),
+    recommendation: "Рекомендуем продукт: " + products[key].title,
+    productKey: key
+  };
 }
 
-// === ИНТЕРФЕЙС ===
+// === ОТОБРАЖЕНИЕ ПРОДУКТА ===
+function showProductDetails(key) {
+  const p = products[key];
+  if (!p) return;
+  document.getElementById('productTitle').textContent = p.title;
+  document.getElementById('productContent').textContent = p.full;
+  document.getElementById('productDetails').style.display = 'block';
+  document.getElementById('recommendations').style.display = 'block';
+  document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
+}
+
+// === КАТАЛОГ ПРОДУКТОВ ===
+function renderAllProducts() {
+  const container = document.getElementById('productsList');
+  if (!container) return;
+  container.innerHTML = '';
+  for (let key in products) {
+    const p = products[key];
+    const div = document.createElement('div');
+    div.className = 'product-item';
+    div.innerHTML = `
+      <h3>${p.title}</h3>
+      <p>${p.short}</p>
+      <button class="btn product-btn" data-key="${key}">Подробнее</button>
+    `;
+    container.appendChild(div);
+  }
+  // Назначаем обработчики
+  document.querySelectorAll('.product-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const k = e.target.dataset.key;
+      showProductDetails(k);
+    });
+  });
+}
+
+// === ПОШАГОВЫЙ ОПРОСНИК ===
 let currentStep = 0;
 const answers = {};
 
@@ -285,7 +247,6 @@ function showQuestion(step) {
   });
   html += `</div>`;
   document.getElementById('quizContainer').innerHTML = html;
-  
   document.getElementById('prevBtn').style.display = step === 0 ? 'none' : 'inline-block';
   document.getElementById('nextBtn').textContent = step === questions.length - 1 ? 'Получить рекомендации' : 'Далее';
   document.getElementById('quizIntro').style.display = 'none';
@@ -293,81 +254,36 @@ function showQuestion(step) {
 
 function saveAnswer() {
   const q = questions[currentStep];
-  const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-  if (selected) {
-    answers[q.id] = selected.value;
-    return true;
-  }
-  alert('Пожалуйста, выберите вариант ответа.');
-  return false;
+  const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
+  if (sel) { answers[q.id] = sel.value; return true; }
+  alert('Пожалуйста, выберите вариант ответа.'); return false;
 }
 
 document.getElementById('nextBtn').addEventListener('click', () => {
   if (!saveAnswer()) return;
-  if (currentStep < questions.length - 1) {
-    currentStep++;
-    showQuestion(currentStep);
-  } else {
-    const answerArray = Object.values(answers);
-    const { businessProfile, financeProfile } = calculateProfile(answerArray);
-    const report = generateReport(businessProfile, financeProfile);
-    
+  if (currentStep < questions.length - 1) { currentStep++; showQuestion(currentStep); }
+  else {
+    const arr = Object.values(answers);
+    const { businessProfile, financeProfile } = calculateProfile(arr);
+    const rep = generateReport(businessProfile, financeProfile);
     document.getElementById('resultText').innerHTML = `
-      <p><strong>Диагноз:</strong> ${report.diagnosis}</p>
-      <p><strong>Рекомендация:</strong> ${report.recommendation}</p>
+      <p><strong>Диагноз:</strong> ${rep.diagnosis}</p>
+      <p><strong>Рекомендация:</strong> ${rep.recommendation}</p>
     `;
-    showProductDetails(report.productKey);
-    document.getElementById('recommendations').style.display = 'block';
-    document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
+    showProductDetails(rep.productKey);
   }
 });
 
 document.getElementById('prevBtn').addEventListener('click', () => {
-  if (currentStep > 0) {
-    currentStep--;
-    showQuestion(currentStep);
-  }
+  if (currentStep > 0) { currentStep--; showQuestion(currentStep); }
 });
 
-function showProductDetails(key) {
-  const product = products[key];
-  if (!product) return;
-  document.getElementById('productTitle').textContent = product.title;
-  document.getElementById('productContent').textContent = product.full;
-  document.getElementById('productDetails').style.display = 'block';
-}
-
-document.getElementById('closeDetail').addEventListener('click', () => {
+document.getElementById('closeDetail')?.addEventListener('click', () => {
   document.getElementById('productDetails').style.display = 'none';
 });
 
-// === КАТАЛОГ ВСЕХ ПРОДУКТОВ (С РАБОТАЮЩИМИ КНОПКАМИ) ===
-function renderAllProducts() {
-  const container = document.getElementById('productsList');
-  container.innerHTML = '';
-
-  for (let key in products) {
-    const product = products[key];
-    const item = document.createElement('div');
-    item.className = 'product-item';
-    item.innerHTML = `
-      <h3>${product.title}</h3>
-      <p>${product.short}</p>
-      <button class="btn product-detail-btn" data-key="${key}">Подробнее</button>
-    `;
-    container.appendChild(item);
-  }
-
-  // Назначаем обработчики
-  document.querySelectorAll('.product-detail-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const key = e.target.getAttribute('data-key');
-      showProductDetails(key);
-      document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-}
-
-// Запуск
+// === ЗАПУСК ===
 renderAllProducts();
 showQuestion(0);
+
+});
