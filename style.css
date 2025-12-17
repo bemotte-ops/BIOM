@@ -11,7 +11,7 @@
 }
 
 body {
-  font-family: 'Quicksand', Arial, sans-serif;
+  font-family: 'Quicksand', Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
   font-weight: 500;
   line-height: 1.7;
   color: #2d3748;
@@ -20,7 +20,7 @@ body {
 
 /* Заголовки — Patrick Hand */
 h1, h2, h3 {
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-family: 'Patrick Hand', 'Comic Sans MS', 'Trebuchet MS', cursive !important;
   color: #2c3e50;
   text-align: center;
   margin: 32px auto 24px;
@@ -301,7 +301,7 @@ input[type="radio"] {
 .footer {
   background: #33a2c6;
   color: white;
-  padding: 8px 20px;
+  padding: 4px 20px !important;
   margin-top: 40px;
   width: 100%;
   border-radius: 16px;
@@ -313,15 +313,15 @@ input[type="radio"] {
   margin-bottom: 20px;
 }
 
-.footer-top h3 {
+.footer-info h3 {
   font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
-  font-size: 24px;
-  margin: 0;
+  font-size: 24px !important;
+  margin: 0 0 4px 0 !important;
   color: white;
 }
 
-.footer-top p {
-  margin: 4px 0 0;
+.footer-info p {
+  margin: 0 !important;
   font-size: 14px;
   opacity: 0.95;
 }
