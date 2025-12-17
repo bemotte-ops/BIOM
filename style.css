@@ -371,3 +371,16 @@ input[type="radio"] {
 .footer-contact-link:hover {
   opacity: 0.85;
 }
+
+/* Картинка в блоке "Наш подход" */
+.approach-graphic {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.approach-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
