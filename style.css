@@ -301,7 +301,7 @@ input[type="radio"] {
 .footer {
   background: #33a2c6;
   color: white;
-  padding: 16px 20px;
+  padding: 8px 20px;
   margin-top: 40px;
   width: 100%;
   border-radius: 16px;
@@ -321,7 +321,7 @@ input[type="radio"] {
 }
 
 .footer-top p {
-  margin: 8px 0 0;
+  margin: 4px 0 0;
   font-size: 14px;
   opacity: 0.95;
 }
