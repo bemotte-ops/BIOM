@@ -301,11 +301,11 @@ input[type="radio"] {
 .footer {
   background: #33a2c6;
   color: white;
-  padding: 24px 20px 16px;
+  padding: 16px 20px;
   margin-top: 40px;
   width: 100%;
-  border-radius: 16px; /* ← добавлено */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* ← лёгкая тень для объёма (опционально) */
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .footer-top {
@@ -334,6 +334,14 @@ input[type="radio"] {
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  padding-top: 12px;
+}
+
+.footer-separator {
+  width: 200px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 12px auto;
 }
 
 .footer-contact-item {
