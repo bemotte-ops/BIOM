@@ -372,6 +372,11 @@ input[type="radio"] {
   opacity: 0.85;
 }
 
+/* Гарантированно белый текст во всём футере */
+.footer * {
+  color: white !important;
+}
+
 /* Картинка в блоке "Наш подход" */
 .approach-graphic {
   margin-top: 24px;
