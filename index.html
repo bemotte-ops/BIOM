@@ -56,7 +56,61 @@
           <li>сопровождаем до достижения конкретного измеримого результата</li>
       </ul>
       <div class="approach-graphic">
-        <img src="grath.png" alt="Процесс улучшений Icon People" class="approach-image">
+        <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <!-- Фон -->
+          <rect width="400" height="300" fill="#f8f9fa" rx="16"/>
+          
+          <!-- Центральный круг -->
+          <circle cx="200" cy="150" r="60" fill="#33a2c6" opacity="0.9"/>
+          <text x="200" y="145" text-anchor="middle" fill="white" font-family="Patrick Hand" font-size="16" font-weight="bold">Icon</text>
+          <text x="200" y="165" text-anchor="middle" fill="white" font-family="Patrick Hand" font-size="14">People</text>
+          
+          <!-- Верхний элемент - Анализ -->
+          <circle cx="200" cy="50" r="35" fill="#3498db" opacity="0.8"/>
+          <text x="200" y="55" text-anchor="middle" fill="white" font-family="Patrick Hand" font-size="12">Анализ</text>
+          
+          <!-- Правый элемент - Планирование -->
+          <circle cx="320" cy="120" r="35" fill="#2ecc71" opacity="0.8"/>
+          <text x="320" y="125" text-anchor="middle" fill="white" font-family="Patrick Hand" font-size="12">Планирование</text>
+          
+          <!-- Нижний элемент - Внедрение -->
+          <circle cx="200" cy="250" r="35" fill="#e74c3c" opacity="0.8"/>
+          <text x="200" y="255" text-anchor="middle" fill="white" font-family="Patrick Hand" font-size="12">Внедрение</text>
+          
+          <!-- Левый элемент - Контроль -->
+          <circle cx="80" cy="120" r="35" fill="#f39c12" opacity="0.8"/>
+          <text x="80" y="125" text-anchor="middle" fill="white" font-family="Patrick Hand" font-size="12">Контроль</text>
+          
+          <!-- Стрелки (кривые линии) -->
+          <!-- От Анализ к Планирование -->
+          <path d="M 220 65 Q 280 85 285 105" stroke="#33a2c6" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+          
+          <!-- От Планирование к Внедрение -->
+          <path d="M 305 140 Q 280 190 220 225" stroke="#33a2c6" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+          
+          <!-- От Внедрение к Контроль -->
+          <path d="M 180 235 Q 120 190 95 135" stroke="#33a2c6" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+          
+          <!-- От Контроль к Анализ -->
+          <path d="M 95 105 Q 140 75 180 65" stroke="#33a2c6" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+          
+          <!-- Стрелка для обозначения цикла -->
+          <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#33a2c6"/>
+            </marker>
+          </defs>
+          
+          <!-- Заголовок -->
+          <text x="200" y="30" text-anchor="middle" fill="#2c3e50" font-family="Patrick Hand" font-size="18" font-weight="bold">
+            Непрерывный процесс улучшений
+          </text>
+          
+          <!-- Подпись внизу -->
+          <text x="200" y="290" text-anchor="middle" fill="#7f8c8d" font-family="Quicksand" font-size="12">
+            От стратегии к результату через системный подход
+          </text>
+        </svg>
     </div>
   </section>
    
