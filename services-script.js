@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-// === ПРОДУКТЫ ===
 const products = {
   "OGSM": {
     title: "Адаптивная система стратегического управления OGSM",
@@ -34,7 +33,6 @@ const products = {
   }
 };
 
-// === ОТОБРАЖЕНИЕ КАТАЛОГА ===
 function renderAllProducts() {
   const container = document.getElementById('productsList');
   if (!container) return;
@@ -55,21 +53,14 @@ function renderAllProducts() {
     container.appendChild(card);
   }
 
-  // Назначаем обработчики
   document.querySelectorAll('.product-toggle').forEach(btn => {
     btn.addEventListener('click', function() {
       const key = this.getAttribute('data-key');
       const fullDiv = document.getElementById(`full-${key}`);
 
-      // Скрыть все развёрнутые описания и сбросить кнопки
-      document.querySelectorAll('.product-full').forEach(el => {
-        el.style.display = 'none';
-      });
-      document.querySelectorAll('.product-toggle').forEach(b => {
-        b.textContent = 'Подробнее';
-      });
+      document.querySelectorAll('.product-full').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.product-toggle').forEach(b => b.textContent = 'Подробнее');
 
-      // Показать выбранное описание и изменить кнопку
       fullDiv.style.display = 'block';
       this.textContent = 'Скрыть';
     });
@@ -85,8 +76,7 @@ if (burger && navMenu) {
     burger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
   });
 }
-  
-// === ЗАПУСК ===
+
 renderAllProducts();
 
 });
