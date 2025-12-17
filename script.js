@@ -76,7 +76,7 @@ const questions = [
   ]}
 ];
 
-// === ПРОДУКТЫ ===
+// === ПРОДУКТЫ (полные описания из файлов) ===
 const products = {
   "OGSM": {
     title: "Адаптивная система стратегического управления OGSM",
@@ -111,7 +111,7 @@ const products = {
 };
 
 // === ВЕСА ===
-const weights = /* ... как в предыдущем файле ... */ {
+const weights = {
   "1A": { agility: 0, partnership: 0, automation: 1, system: 2 },
   "1B": { agility: 3, partnership: 1, automation: 0, system: 0 },
   "1C": { agility: 2, partnership: 2, automation: 0, system: 3 },
@@ -162,7 +162,7 @@ const weights = /* ... как в предыдущем файле ... */ {
   "12D": { F_SYS: 0, F_AUTO: 0, F_GROW: 0 }
 };
 
-// === ЛОГИКА ===
+// === ОПРЕДЕЛЕНИЕ ПРОФИЛЯ ===
 function calculateProfile(answers) {
   let scores = { agility: 0, partnership: 0, automation: 0, system: 0, F_SYS: 0, F_AUTO: 0, F_GROW: 0 };
   answers.forEach(ans => {
@@ -198,15 +198,29 @@ function generateReport(businessProfile, financeProfile) {
   };
 }
 
-// === ОТОБРАЖЕНИЕ ПРОДУКТА ===
-function showProductDetails(key) {
-  const p = products[key];
-  if (!p) return;
-  document.getElementById('productTitle').textContent = p.title;
-  document.getElementById('productContent').textContent = p.full;
-  document.getElementById('productDetails').style.display = 'block';
-  document.getElementById('recommendations').style.display = 'block';
-  document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
+// === ОТОБРАЖЕНИЕ РЕКОМЕНДАЦИИ С КАРТОЧКОЙ ===
+function showRecommendation(report) {
+  const p = products[report.productKey];
+  document.getElementById('resultText').innerHTML = `
+    <p><strong>Диагноз:</strong> ${report.diagnosis}</p>
+    <p><strong>Рекомендация:</strong> ${report.recommendation}</p>
+    <div class="product-item" style="margin-top:24px; background:#f8f9ff; padding:16px; border-radius:12px;">
+      <h3>${p.title}</h3>
+      <p>${p.short}</p>
+      <button class="btn product-toggle-rec" data-key="${report.productKey}">Подробнее</button>
+      <div class="product-full-rec" id="rec-full-${report.productKey}" style="display:none; margin-top:16px; white-space:pre-line;">
+        ${p.full}
+      </div>
+    </div>
+  `;
+
+  document.querySelector('.product-toggle-rec').addEventListener('click', function() {
+    const key = this.getAttribute('data-key');
+    const full = document.getElementById(`rec-full-${key}`);
+    const isHidden = full.style.display === 'none';
+    full.style.display = isHidden ? 'block' : 'none';
+    this.textContent = isHidden ? 'Скрыть' : 'Подробнее';
+  });
 }
 
 // === КАТАЛОГ ПРОДУКТОВ ===
@@ -214,22 +228,29 @@ function renderAllProducts() {
   const container = document.getElementById('productsList');
   if (!container) return;
   container.innerHTML = '';
+
   for (let key in products) {
     const p = products[key];
-    const div = document.createElement('div');
-    div.className = 'product-item';
-    div.innerHTML = `
+    const card = document.createElement('div');
+    card.className = 'product-item';
+    card.innerHTML = `
       <h3>${p.title}</h3>
       <p>${p.short}</p>
-      <button class="btn product-btn" data-key="${key}">Подробнее</button>
+      <button class="btn product-toggle" data-key="${key}">Подробнее</button>
+      <div class="product-full" id="full-${key}" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid #eee; white-space:pre-line;">
+        ${p.full}
+      </div>
     `;
-    container.appendChild(div);
+    container.appendChild(card);
   }
-  // Назначаем обработчики
-  document.querySelectorAll('.product-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const k = e.target.dataset.key;
-      showProductDetails(k);
+
+  document.querySelectorAll('.product-toggle').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const key = this.getAttribute('data-key');
+      const full = document.getElementById(`full-${key}`);
+      const isHidden = full.style.display === 'none';
+      full.style.display = isHidden ? 'block' : 'none';
+      this.textContent = isHidden ? 'Скрыть' : 'Подробнее';
     });
   });
 }
@@ -247,6 +268,7 @@ function showQuestion(step) {
   });
   html += `</div>`;
   document.getElementById('quizContainer').innerHTML = html;
+  
   document.getElementById('prevBtn').style.display = step === 0 ? 'none' : 'inline-block';
   document.getElementById('nextBtn').textContent = step === questions.length - 1 ? 'Получить рекомендации' : 'Далее';
   document.getElementById('quizIntro').style.display = 'none';
@@ -261,25 +283,29 @@ function saveAnswer() {
 
 document.getElementById('nextBtn').addEventListener('click', () => {
   if (!saveAnswer()) return;
-  if (currentStep < questions.length - 1) { currentStep++; showQuestion(currentStep); }
-  else {
+  if (currentStep < questions.length - 1) {
+    currentStep++;
+    showQuestion(currentStep);
+  } else {
     const arr = Object.values(answers);
     const { businessProfile, financeProfile } = calculateProfile(arr);
     const rep = generateReport(businessProfile, financeProfile);
-    document.getElementById('resultText').innerHTML = `
-      <p><strong>Диагноз:</strong> ${rep.diagnosis}</p>
-      <p><strong>Рекомендация:</strong> ${rep.recommendation}</p>
-    `;
-    showProductDetails(rep.productKey);
+    showRecommendation(rep);
+    document.getElementById('recommendations').style.display = 'block';
+    document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
   }
 });
 
 document.getElementById('prevBtn').addEventListener('click', () => {
-  if (currentStep > 0) { currentStep--; showQuestion(currentStep); }
+  if (currentStep > 0) {
+    currentStep--;
+    showQuestion(currentStep);
+  }
 });
 
-document.getElementById('closeDetail')?.addEventListener('click', () => {
-  document.getElementById('productDetails').style.display = 'none';
+// === КНОПКА "ПОКАЗАТЬ ВСЕ ПРОДУКТЫ" ===
+document.getElementById('showAllProducts')?.addEventListener('click', () => {
+  document.getElementById('allProducts').scrollIntoView({ behavior: 'smooth' });
 });
 
 // === ЗАПУСК ===
