@@ -45,17 +45,23 @@ h1::after {
   box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
 }
 
-/* БЛОКИ — полная ширина */
+/* БЛОКИ — на всю ширину, но с визуальным оформлением */
 .block {
   width: 100%;
   padding: 40px 20px;
   background: white;
-  border-radius: 0;
-  box-shadow: none;
-  border-bottom: 1px solid #eee;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  margin: 40px auto;
 }
 
-/* Фиксированный отступ для якорных ссылок */
+/* Центрирование текста в блоках "Диагностика" и "Консультация" */
+#quiz,
+#consultation {
+  text-align: center;
+}
+
+/* Якорные отступы для прокрутки */
 section[id] {
   scroll-margin-top: calc(var(--header-height) + 20px);
   padding-top: 20px;
@@ -88,7 +94,7 @@ section[id] {
 
 .site-title {
   font-family: 'Patrick Hand', cursive;
-  font-size: 28px; /* как h1, но чуть меньше для баланса */
+  font-size: 28px;
   color: var(--primary);
 }
 
@@ -117,7 +123,34 @@ section[id] {
   font-size: 14px;
 }
 
-/* БУРГЕР-МЕНЮ (мобильный) */
+/* КНОПКИ */
+.btn {
+  background: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn:hover {
+  background: #3a5bf5;
+}
+
+.btn-primary {
+  background: #007bff;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+/* БУРГЕР-МЕНЮ */
 .burger-menu {
   display: none;
   flex-direction: column;
@@ -136,6 +169,98 @@ section[id] {
   height: 3px;
   background: #2d3748;
   border-radius: 2px;
+}
+
+/* СТИЛИ ДЛЯ ПОДБЛОКОВ */
+.sub-block {
+  background: #f9fafc;
+  padding: 24px;
+  border-radius: 14px;
+  margin: 28px 0;
+}
+
+.centered {
+  text-align: center;
+  margin-top: 0;
+}
+
+ul, ol {
+  padding-left: 20px;
+  margin: 12px 0 20px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+p {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+  padding: 12px;
+  background: #f8f9fa;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+label:hover {
+  background: #edf2f7;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+  transform: scale(1.15);
+}
+
+/* ЦИКЛ НАШ ПОДХОД */
+.approach-cycle {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.cycle-svg {
+  max-width: 280px;
+  margin: 0 auto 20px;
+}
+
+.cycle-text {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  fill: #4a5568;
+  font-weight: 600;
+}
+
+.cycle-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.legend-item {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  font-size: 13px;
+  min-width: 110px;
+}
+
+.product-item {
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #eee;
+}
+
+.product-item h3 {
+  margin-bottom: 10px;
+  color: #2c3e50;
 }
 
 /* АДАПТИВНОСТЬ */
@@ -168,7 +293,6 @@ section[id] {
     display: flex;
   }
 
-  /* Блоки на мобильных */
   .block {
     padding: 32px 16px;
   }
@@ -178,7 +302,7 @@ section[id] {
   h3 { font-size: 24px; }
 }
 
-/* ФУТЕР — полная ширина */
+/* ФУТЕР */
 .footer {
   background: #1a202c;
   color: #f7fafc;
@@ -218,6 +342,12 @@ section[id] {
   color: #ffffff;
 }
 
+.social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
 .social-icon {
   display: flex;
   align-items: center;
@@ -228,7 +358,6 @@ section[id] {
   border-radius: 50%;
   color: #ffffff;
   text-decoration: none;
-  font-size: 16px;
   transition: background 0.2s;
 }
 
@@ -236,14 +365,14 @@ section[id] {
   background: #4a5568;
 }
 
-.contact-item a,
+.contact-item,
 .footer-column a {
   color: #cbd5e0;
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.contact-item a:hover,
+.contact-item:hover,
 .footer-column a:hover {
   color: #6cb2eb;
 }
@@ -269,5 +398,8 @@ section[id] {
   .footer-info {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .social-icons {
+    justify-content: center;
   }
 }
