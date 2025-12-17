@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <title>Услуги | Icon People</title>
+</head>
+<body>
+
+  <!-- ШАПКА САЙТА -->
+  <header class="header">
+    <div class="header-left">
+      <img src="logo.png" alt="Логотип Icon People" class="logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMi41QzYuNSAyLjUgMiA3IDJdMjIuNVYxMk0yLjUgMTJIMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMjIyMiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIC8+PC9zdmc+';">
+      <span class="site-title">Icon People</span>
+    </div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="index.html">О нас</a></li>
+        <li><a href="index.html#philosophy">Философия</a></li>
+        <li><a href="index.html#approach">Подход</a></li>
+        <li><a href="index.html#stability">Критерии</a></li>
+        <li><a href="index.html#quiz">Диагностика</a></li>
+        <li><a href="services.html" class="active">Продукты</a></li>
+      </ul>
+    </nav>
+    <div class="header-right">
+      <a href="https://calendar.google.com/calendar/appointments/schedules/YOUR_GOOGLE_CALENDAR_LINK" target="_blank" class="btn btn-primary">📅 Консультация</a>
+    </div>
+  </header>
+
+  <!-- Блок 1: Заголовок -->
+  <section class="block">
+    <h1>Наши услуги</h1>
+    <p>Выберите интересующую вас услугу — и узнайте подробнее о том, как она поможет вашему бизнесу.</p>
+  </section>
+
+  <!-- Блок 2: Каталог всех продуктов -->
+  <section id="allProducts" class="block">
+    <div id="productsList"></div>
+  </section>
+
+  <script src="services-script.js"></script>
+</body>
+</html>
