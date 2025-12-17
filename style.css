@@ -5,7 +5,8 @@
 }
 
 :root {
-  --primary: #4a6cf7;
+  --primary: #33a2c6;
+  --primary-hover: #2a8dae;
   --header-height: 70px;
 }
 
@@ -95,7 +96,7 @@ section[id] {
 .site-title {
   font-family: 'Patrick Hand', cursive;
   font-size: 28px;
-  color: var(--primary);
+  color: var(--primary); /* обновлённый цвет */
 }
 
 /* МЕНЮ */
@@ -114,7 +115,7 @@ section[id] {
 
 .nav-menu a:hover,
 .nav-menu a.active {
-  color: var(--primary);
+  color: var(--primary); /* обновлённый цвет */
   border-bottom: 2px solid var(--primary);
 }
 
@@ -123,9 +124,10 @@ section[id] {
   font-size: 14px;
 }
 
-/* КНОПКИ */
-.btn {
-  background: #4a6cf7;
+/* КНОПКИ — ОБНОВЛЁННЫЙ ЦВЕТ */
+.btn,
+.btn-primary {
+  background: var(--primary);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -138,16 +140,9 @@ section[id] {
   text-align: center;
 }
 
-.btn:hover {
-  background: #3a5bf5;
-}
-
-.btn-primary {
-  background: #007bff;
-}
-
+.btn:hover,
 .btn-primary:hover {
-  background: #0056b3;
+  background: var(--primary-hover);
 }
 
 /* БУРГЕР-МЕНЮ */
@@ -310,7 +305,6 @@ input[type="radio"] {
   margin-top: 0;
   width: 100%;
   border-top: 1px solid #2d3748;
-  border-radius: 16px;
 }
 
 .footer-container {
@@ -363,19 +357,21 @@ input[type="radio"] {
 }
 
 .social-icon:hover {
-  background: #4a5568;
+  background: var(--primary); /* обновлённый цвет */
+  color: white;
 }
 
-.contact-item,
+/* ССЫЛКИ В ФУТЕРЕ — акцентный цвет */
+.contact-item a,
 .footer-column a {
   color: #cbd5e0;
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.contact-item:hover,
+.contact-item a:hover,
 .footer-column a:hover {
-  color: #6cb2eb;
+  color: var(--primary); /* обновлённый цвет */
 }
 
 .footer-bottom {
