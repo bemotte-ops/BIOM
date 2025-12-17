@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-// === ВОПРОСЫ ===
 const questions = [
   { id: 1, text: "Как в вашей компании обычно реализуются новые проекты или стратегические инициативы?", options: [
     { value: "1A", text: "По четкому годовому плану — отклонения минимальны, приоритеты определены надолго" },
@@ -76,7 +75,6 @@ const questions = [
   ]}
 ];
 
-// === ПРОДУКТЫ ===
 const products = {
   "OGSM": {
     title: "Адаптивная система стратегического управления OGSM",
@@ -110,7 +108,6 @@ const products = {
   }
 };
 
-// === ВЕСА ===
 const weights = {
   "1A": { agility: 0, partnership: 0, automation: 1, system: 2 },
   "1B": { agility: 3, partnership: 1, automation: 0, system: 0 },
@@ -162,7 +159,6 @@ const weights = {
   "12D": { F_SYS: 0, F_AUTO: 0, F_GROW: 0 }
 };
 
-// === ЛОГИКА ===
 function calculateProfile(answers) {
   let scores = { agility: 0, partnership: 0, automation: 0, system: 0, F_SYS: 0, F_AUTO: 0, F_GROW: 0 };
   answers.forEach(ans => {
@@ -183,9 +179,9 @@ function calculateProfile(answers) {
 }
 
 function generateReport(businessProfile, financeProfile) {
-  if (financeProfile === "F1") return { diagnosis: "Отсутствует системный финансовый менеджмент. Решения принимаются интуитивно, высокие риски кассовых разрывов.", recommendation: "срочное построение финансовой функции с нуля", productKey: "F1" };
-  if (financeProfile === "F2") return { diagnosis: "Финансы не стали инструментом для роста. Непрозрачность блокирует масштабирование.", recommendation: "проведение аудита и оптимизация процессов", productKey: "F2" };
-  if (financeProfile === "F3") return { diagnosis: "Квалифицированные сотрудники тонут в рутине. Высоки операционные риски.", recommendation: "внедрение AI и цифровых инструментов для автоматизации", productKey: "F3" };
+  if (financeProfile === "F1") return { diagnosis: "Отсутствует системный финансовый менеджмент. Решения принимаются интуитивно, высокие риски кассовых разрывов.", recommendation: "срочное построение финансовой функции с нуля.", productKey: "F1" };
+  if (financeProfile === "F2") return { diagnosis: "Финансы не стали инструментом для роста. Непрозрачность блокирует масштабирование.", recommendation: "проведение аудита и оптимизация процессов.", productKey: "F2" };
+  if (financeProfile === "F3") return { diagnosis: "Квалифицированные сотрудники тонут в рутине. Высоки операционные риски.", recommendation: "внедрение AI и цифровых инструментов для автоматизации.", productKey: "F3" };
 
   const map = { agility: "Agile", partnership: "Academy", automation: "F3", system: "OGSM" };
   const key = map[businessProfile] || "OGSM";
@@ -198,7 +194,6 @@ function generateReport(businessProfile, financeProfile) {
   };
 }
 
-// === ПОШАГОВЫЙ ОПРОСНИК ===
 let currentStep = 0;
 const answers = {};
 
@@ -221,7 +216,7 @@ function saveAnswer() {
   const q = questions[currentStep];
   const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
   if (sel) { answers[q.id] = sel.value; return true; }
-  alert('Пожалуйста, выберите вариант ответа'); return false;
+  alert('Пожалуйста, выберите вариант ответа.'); return false;
 }
 
 document.getElementById('nextBtn').addEventListener('click', () => {
@@ -249,7 +244,7 @@ document.getElementById('prevBtn').addEventListener('click', () => {
   }
 });
 
-  // === БУРГЕР-МЕНЮ ===
+// === БУРГЕР-МЕНЮ ===
 const burger = document.querySelector('.burger-menu');
 const navMenu = document.querySelector('.nav-menu');
 if (burger && navMenu) {
