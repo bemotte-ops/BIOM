@@ -96,7 +96,7 @@ section[id] {
 .site-title {
   font-family: 'Patrick Hand', cursive;
   font-size: 28px;
-  color: var(--primary); /* обновлённый цвет */
+  color: var(--primary);
 }
 
 /* МЕНЮ */
@@ -115,7 +115,7 @@ section[id] {
 
 .nav-menu a:hover,
 .nav-menu a.active {
-  color: var(--primary); /* обновлённый цвет */
+  color: var(--primary);
   border-bottom: 2px solid var(--primary);
 }
 
@@ -124,7 +124,7 @@ section[id] {
   font-size: 14px;
 }
 
-/* КНОПКИ — ОБНОВЛЁННЫЙ ЦВЕТ */
+/* КНОПКИ */
 .btn,
 .btn-primary {
   background: var(--primary);
@@ -212,7 +212,7 @@ input[type="radio"] {
   transform: scale(1.15);
 }
 
-/* ЦИКЛ НАШ ПОДХОД */
+/* ЦИКЛ "Наш подход" */
 .approach-cycle {
   margin-top: 24px;
   text-align: center;
@@ -299,104 +299,73 @@ input[type="radio"] {
 
 /* ФУТЕР */
 .footer {
-  background: #1a202c;
-  color: #f7fafc;
-  padding: 40px 20px 20px;
-  margin-top: 0;
+  background: #33a2c6;
+  color: white;
+  padding: 24px 20px 16px;
+  margin-top: 40px;
   width: 100%;
-  border-top: 1px solid #2d3748;
 }
 
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-column h3 {
-  font-size: 18px;
+.footer-top {
+  text-align: center;
   margin-bottom: 20px;
-  color: #ffffff;
+}
+
+.footer-top h3 {
   font-family: 'Patrick Hand', cursive;
-  font-weight: normal;
-}
-
-.footer-logo {
-  width: 32px;
-  height: 32px;
-  margin-right: 12px;
-  vertical-align: middle;
-}
-
-.footer-info h3 {
+  font-size: 24px;
   margin: 0;
-  font-size: 20px;
-  color: #ffffff;
-}
-
-.social-icons {
-  display: flex;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.social-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: #2d3748;
-  border-radius: 50%;
-  color: #ffffff;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-
-.social-icon:hover {
-  background: var(--primary); /* обновлённый цвет */
   color: white;
 }
 
-/* ССЫЛКИ В ФУТЕРЕ — акцентный цвет */
-.contact-item a,
-.footer-column a {
-  color: #cbd5e0;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.contact-item a:hover,
-.footer-column a:hover {
-  color: var(--primary); /* обновлённый цвет */
+.footer-top p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  opacity: 0.95;
 }
 
 .footer-bottom {
-  text-align: center;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #2d3748;
-  font-size: 12px;
-  color: #a0aec0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  .footer-column {
-    min-width: 100%;
-    text-align: center;
-  }
-  .footer-info {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .social-icons {
-    justify-content: center;
-  }
+.footer-contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.footer-social-icon,
+.footer-contact-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.footer-social-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-contact-link {
+  width: auto;
+  height: auto;
+  padding: 4px 0;
+  text-align: center;
+}
+
+.footer-social-icon:hover,
+.footer-contact-link:hover {
+  opacity: 0.85;
 }
