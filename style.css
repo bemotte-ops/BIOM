@@ -5,8 +5,8 @@
 }
 
 :root {
-  --primary: #6F42C1;
-  --primary-hover: #5a35a3;
+  --primary: #4A2D80;
+  --primary-hover: #3a2470;
   --secondary: #CC7A6F;
   --dark-text: #4A2D80;
   --light-bg: #F5E9DE;
@@ -46,7 +46,7 @@ h1::after {
   margin: 12px auto 0;
   background: linear-gradient(to right, var(--primary), var(--secondary));
   border-radius: 2px;
-  box-shadow: 0 2px 4px rgba(111, 66, 193, 0.3);
+  box-shadow: 0 2px 4px rgba(74, 45, 128, 0.3);
 }
 
 /* БЛОКИ — на всю ширину, но с визуальным оформлением */
