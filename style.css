@@ -124,9 +124,19 @@ section[id] {
   border-bottom: 2px solid var(--primary);
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .header-right .btn {
   padding: 8px 16px;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
 }
 
 /* КНОПКИ */
@@ -266,29 +276,50 @@ input[type="radio"] {
 /* АДАПТИВНОСТЬ */
 @media (max-width: 768px) {
   .header {
-    padding: 0 16px;
-    height: 60px; /* Уменьшаем высоту шапки */
+    padding: 0 12px;
+    height: 50px; /* Еще больше уменьшаем высоту шапки */
   }
   
   .header-left .logo {
-    width: 35px !important; /* Уменьшаем логотип */
-    height: 35px !important;
+    width: 28px !important; /* Еще больше уменьшаем логотип */
+    height: 28px !important;
   }
   
   .header-left .site-title {
-    font-size: 24px !important; /* Уменьшаем название */
+    font-size: 18px !important; /* Уменьшаем название еще больше */
+    font-weight: normal !important; /* Убираем жирность */
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
   
   .header-right .btn {
-    padding: 6px 12px !important;
-    font-size: 12px !important;
-    margin-right: 8px !important;
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+    margin-right: 4px !important;
+    white-space: nowrap;
   }
   
   .header-right .btn-phone {
-    padding: 6px 10px !important;
-    font-size: 11px !important;
-    gap: 4px !important;
+    padding: 4px 6px !important;
+    font-size: 9px !important;
+    gap: 2px !important;
+    white-space: nowrap;
+  }
+  
+  .burger-menu {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+  }
+  
+  .burger-menu span {
+    height: 2px;
+    margin: 2px 0;
   }
   
   .nav-menu {
@@ -311,17 +342,13 @@ input[type="radio"] {
     gap: 16px;
   }
 
-  .burger-menu {
-    display: flex;
-  }
-
   .block {
-    padding: 40px 40px;
+    padding: 20px 20px;
   }
 
-  h1 { font-size: 34px; }
-  h2 { font-size: 28px; }
-  h3 { font-size: 24px; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
 }
 
 /* ФУТЕР */

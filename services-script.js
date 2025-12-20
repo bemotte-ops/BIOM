@@ -50,7 +50,7 @@ function renderAllProducts() {
     card.innerHTML = `
       <div class="product-header" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;" data-key="${key}">
         <h3 style="margin: 0; flex: 1;">${p.title}</h3>
-        <button class="product-toggle-btn" data-key="${key}" style="background: #48426C; border: none; cursor: pointer; padding: 0; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 8px rgba(72, 66, 108, 0.3);">
+        <button class="product-toggle-btn" data-key="${key}" style="background: #0A5466; border: none; cursor: pointer; padding: 0; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 8px rgba(10, 84, 102, 0.3);">
           <span class="toggle-icon" style="font-size: 24px; color: white; transition: transform 0.3s; font-weight: bold;">
             ${isFirst ? '−' : '+'}
           </span>
@@ -66,30 +66,42 @@ function renderAllProducts() {
     container.appendChild(card);
   }
 
-  // Добавляем обработчики для заголовков и кнопок
-  document.querySelectorAll('.product-header, .product-toggle-btn').forEach(element => {
-    element.addEventListener('click', function(e) {
-      e.preventDefault();
-      const key = this.getAttribute('data-key') || this.parentElement.getAttribute('data-key');
-      toggleProduct(key);
+  // Добавляем обработчики для кнопок после создания всех элементов
+  setTimeout(() => {
+    document.querySelectorAll('.product-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const key = this.getAttribute('data-key');
+        console.log('Toggle button clicked for key:', key);
+        toggleProduct(key);
+      });
     });
-  });
+  }, 100);
 }
 
 function toggleProduct(key) {
+  console.log('toggleProduct called with key:', key);
   const fullDiv = document.getElementById(`full-${key}`);
-  const toggleBtn = document.querySelector(`[data-key="${key}"] .toggle-icon`);
+  const toggleBtn = document.querySelector(`button[data-key="${key}"] .toggle-icon`);
+  
+  if (!fullDiv || !toggleBtn) {
+    console.error('Elements not found for key:', key);
+    return;
+  }
+  
+  console.log('Current display:', fullDiv.style.display);
   
   if (fullDiv.style.display === 'none' || fullDiv.style.display === '') {
     // Открываем продукт
     fullDiv.style.display = 'block';
     toggleBtn.textContent = '−';
-    toggleBtn.style.transform = 'rotate(180deg)';
+    console.log('Opened product:', key);
   } else {
     // Закрываем продукт
     fullDiv.style.display = 'none';
     toggleBtn.textContent = '+';
-    toggleBtn.style.transform = 'rotate(0deg)';
+    console.log('Closed product:', key);
   }
 }
 
