@@ -50,8 +50,8 @@ function renderAllProducts() {
     card.innerHTML = `
       <div class="product-header" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;" data-key="${key}">
         <h3 style="margin: 0; flex: 1;">${p.title}</h3>
-        <button class="product-toggle-btn" data-key="${key}" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s;">
-          <span class="toggle-icon" style="font-size: 20px; color: var(--primary); transition: transform 0.3s;">
+        <button class="product-toggle-btn" data-key="${key}" style="background: #48426C; border: none; cursor: pointer; padding: 0; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 8px rgba(72, 66, 108, 0.3);">
+          <span class="toggle-icon" style="font-size: 24px; color: white; transition: transform 0.3s; font-weight: bold;">
             ${isFirst ? '−' : '+'}
           </span>
         </button>

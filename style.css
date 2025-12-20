@@ -267,6 +267,28 @@ input[type="radio"] {
 @media (max-width: 768px) {
   .header {
     padding: 0 16px;
+    height: 60px; /* Уменьшаем высоту шапки */
+  }
+  
+  .header-left .logo {
+    width: 35px !important; /* Уменьшаем логотип */
+    height: 35px !important;
+  }
+  
+  .header-left .site-title {
+    font-size: 24px !important; /* Уменьшаем название */
+  }
+  
+  .header-right .btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    margin-right: 8px !important;
+  }
+  
+  .header-right .btn-phone {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    gap: 4px !important;
   }
   
   .nav-menu {
@@ -411,20 +433,25 @@ input[type="radio"] {
 }
 
 /* СТИЛИ ДЛЯ ПРОДУКТОВ НА СТРАНИЦЕ УСЛУГ */
+.product-toggle-btn {
+  transition: all 0.2s ease;
+}
+
 .product-toggle-btn:hover {
-  background-color: rgba(72, 66, 108, 0.1);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(72, 66, 108, 0.4);
 }
 
 .product-toggle-btn:active {
-  background-color: rgba(72, 66, 108, 0.2);
+  transform: scale(0.95);
 }
 
 .toggle-icon {
-  transition: transform 0.3s ease, color 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
-.product-header:hover .toggle-icon {
-  color: var(--primary-hover);
+.product-toggle-btn:hover .toggle-icon {
+  color: white;
 }
 
 /* СТИЛИ ДЛЯ БЛОКА РЕКОМЕНДАЦИЙ */
