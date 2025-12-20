@@ -9,7 +9,7 @@
   --primary-hover: #3a3558;
   --secondary: #48426C;
   --dark-text: #160A3C;
-  --light-bg-1: #F6F0EA;
+  --light-bg-1: #ffffff;
   --light-bg-2: #F2F2F2;
   --light-bg-3: #F0E6DC;
   --header-height: 70px;
@@ -109,6 +109,15 @@ section[id] {
   display: flex;
   list-style: none;
   gap: 24px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-menu a {
@@ -294,6 +303,9 @@ input[type="radio"] {
     display: flex;
     align-items: center;
     gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 50%;
   }
   
   .header-right .btn {
@@ -301,6 +313,7 @@ input[type="radio"] {
     font-size: 10px !important;
     margin-right: 4px !important;
     white-space: nowrap;
+    flex-shrink: 0;
   }
   
   .header-right .btn-phone {
@@ -308,6 +321,7 @@ input[type="radio"] {
     font-size: 9px !important;
     gap: 2px !important;
     white-space: nowrap;
+    flex-shrink: 0;
   }
   
   .burger-menu {
@@ -490,11 +504,12 @@ input[type="radio"] {
 
 .diagnosis-section,
 .product-section {
-  background: #f8f9fa;
+  background: #ffffff;
   padding: 24px;
   border-radius: 12px;
   margin-bottom: 24px;
-  border-left: 4px solid var(--primary);
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .diagnosis-section h3,
@@ -549,6 +564,76 @@ input[type="radio"] {
 
 .btn-secondary:hover {
   background: #b86a5f;
+}
+
+/* СТИЛИ ДЛЯ БЛОКА КЛЮЧЕВЫХ ФАКТОРОВ */
+.key-factors {
+  margin-top: 40px;
+}
+
+.factor-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+  padding: 32px;
+  background: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.factor-item:nth-child(odd) {
+  flex-direction: row;
+}
+
+.factor-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.factor-number {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 48px;
+  color: #0D6E85;
+  font-weight: bold;
+  margin: 0 24px;
+  min-width: 80px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.factor-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.factor-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0D6E85, #48426C);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 48px;
+  flex-shrink: 0;
+}
+
+.factor-text {
+  flex: 1;
+}
+
+.factor-text h3 {
+  color: #0D6E85;
+  font-size: 24px;
+  margin: 0 0 16px 0;
+  text-align: left;
+}
+
+.factor-text p {
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* Адаптивность для блока рекомендаций */
