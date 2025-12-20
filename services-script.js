@@ -38,33 +38,59 @@ function renderAllProducts() {
   if (!container) return;
   container.innerHTML = '';
 
-  for (let key in products) {
+  const productKeys = Object.keys(products);
+  
+  for (let i = 0; i < productKeys.length; i++) {
+    const key = productKeys[i];
     const p = products[key];
+    const isFirst = i === 0; // Первый продукт открыт по умолчанию
+    
     const card = document.createElement('div');
     card.className = 'product-item';
     card.innerHTML = `
-      <h3>${p.title}</h3>
-      <p>${p.short}</p>
-      <button class="btn product-toggle" data-key="${key}">Подробнее</button>
-      <div class="product-full" id="full-${key}" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid #eee; white-space:pre-line;">
-        ${p.full}
+      <div class="product-header" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;" data-key="${key}">
+        <h3 style="margin: 0; flex: 1;">${p.title}</h3>
+        <button class="product-toggle-btn" data-key="${key}" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s;">
+          <span class="toggle-icon" style="font-size: 20px; color: var(--primary); transition: transform 0.3s;">
+            ${isFirst ? '−' : '+'}
+          </span>
+        </button>
+      </div>
+      <p style="margin: 16px 0;">${p.short}</p>
+      <div class="product-full" id="full-${key}" style="margin-top:16px; padding-top:16px; border-top:1px solid #eee; ${isFirst ? 'display: block;' : 'display: none;'}">
+        <div style="white-space: pre-line; line-height: 1.6;">
+          ${p.full}
+        </div>
       </div>
     `;
     container.appendChild(card);
   }
 
-  document.querySelectorAll('.product-toggle').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const key = this.getAttribute('data-key');
-      const fullDiv = document.getElementById(`full-${key}`);
-
-      document.querySelectorAll('.product-full').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.product-toggle').forEach(b => b.textContent = 'Подробнее');
-
-      fullDiv.style.display = 'block';
-      this.textContent = 'Скрыть';
+  // Добавляем обработчики для заголовков и кнопок
+  document.querySelectorAll('.product-header, .product-toggle-btn').forEach(element => {
+    element.addEventListener('click', function(e) {
+      e.preventDefault();
+      const key = this.getAttribute('data-key') || this.parentElement.getAttribute('data-key');
+      toggleProduct(key);
     });
   });
+}
+
+function toggleProduct(key) {
+  const fullDiv = document.getElementById(`full-${key}`);
+  const toggleBtn = document.querySelector(`[data-key="${key}"] .toggle-icon`);
+  
+  if (fullDiv.style.display === 'none' || fullDiv.style.display === '') {
+    // Открываем продукт
+    fullDiv.style.display = 'block';
+    toggleBtn.textContent = '−';
+    toggleBtn.style.transform = 'rotate(180deg)';
+  } else {
+    // Закрываем продукт
+    fullDiv.style.display = 'none';
+    toggleBtn.textContent = '+';
+    toggleBtn.style.transform = 'rotate(0deg)';
+  }
 }
 
 // === БУРГЕР-МЕНЮ + ЗАКРЫТИЕ ПРИ КЛИКЕ НА ССЫЛКУ ===

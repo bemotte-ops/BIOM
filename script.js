@@ -179,6 +179,7 @@ function calculateProfile(answers) {
 }
 
 function generateReport(businessProfile, financeProfile) {
+  // Сначала проверяем финансовый профиль
   if (financeProfile === "F1") return { 
     diagnosis: "Отсутствует системный финансовый менеджмент. Решения принимаются интуитивно, высокие риски кассовых разрывов.", 
     product: products["F1"],
@@ -195,8 +196,25 @@ function generateReport(businessProfile, financeProfile) {
     productKey: "F3" 
   };
 
-  const map = { agility: "Agile", partnership: "Academy", automation: "F3", system: "OGSM" };
+  // Если финансовый профиль не определен, используем бизнес-профиль
+  const map = { 
+    agility: "Agile", 
+    partnership: "Academy", 
+    automation: "F3", 
+    system: "OGSM" 
+  };
   const key = map[businessProfile] || "OGSM";
+  
+  // Проверяем, что продукт существует
+  if (!products[key]) {
+    console.error('Product not found for key:', key);
+    return {
+      diagnosis: "Выявлен профиль: Системность",
+      product: products["OGSM"],
+      productKey: "OGSM"
+    };
+  }
+  
   return {
     diagnosis: "Выявлен профиль: " + (businessProfile === "agility" ? "Гибкость и скорость" :
               businessProfile === "partnership" ? "Партнерство" :
@@ -230,8 +248,13 @@ function showQuestion(step) {
 function saveAnswer() {
   const q = questions[currentStep];
   const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
-  if (sel) { answers[q.id] = sel.value; return true; }
-  alert('Пожалуйста, выберите вариант ответа.'); return false;
+  if (sel) { 
+    answers[q.id] = sel.value; 
+    console.log(`Saved answer for question ${q.id}:`, sel.value);
+    return true; 
+  }
+  alert('Пожалуйста, выберите вариант ответа.'); 
+  return false;
 }
 
 document.getElementById('nextBtn').addEventListener('click', () => {
@@ -240,54 +263,78 @@ document.getElementById('nextBtn').addEventListener('click', () => {
     currentStep++;
     showQuestion(currentStep);
   } else {
-    const arr = Object.values(answers);
-    const { businessProfile, financeProfile } = calculateProfile(arr);
-    const rep = generateReport(businessProfile, financeProfile);
-    
-    // Форматируем полное описание для отображения
-    const fullDescription = rep.product.full.replace(/\n/g, '<br>');
-    
-    document.getElementById('resultText').innerHTML = `
-      <div class="recommendation-result">
-        <div class="diagnosis-section">
-          <h3>Диагностика:</h3>
-          <p>${rep.diagnosis}</p>
-        </div>
-        
-        <div class="product-section">
-          <h3>Рекомендуемая услуга:</h3>
-          <h4>${rep.product.title}</h4>
-          <p>${rep.product.short}</p>
-          <button id="productDetailsBtn" class="btn" style="margin: 16px 0;">Подробнее</button>
-          <div id="productFullDescription" class="product-description" style="display: none;">
-            ${fullDescription}
+    try {
+      const arr = Object.values(answers);
+      console.log('Answers:', answers);
+      console.log('Answers array:', arr);
+      
+      const { businessProfile, financeProfile } = calculateProfile(arr);
+      console.log('Business profile:', businessProfile);
+      console.log('Finance profile:', financeProfile);
+      
+      const rep = generateReport(businessProfile, financeProfile);
+      console.log('Generated report:', rep);
+      
+      if (!rep || !rep.product) {
+        console.error('Invalid report generated:', rep);
+        alert('Произошла ошибка при генерации рекомендаций. Попробуйте пройти опрос заново.');
+        return;
+      }
+      
+      // Форматируем полное описание для отображения
+      const fullDescription = rep.product.full ? rep.product.full.replace(/\n/g, '<br>') : 'Описание недоступно';
+      
+      document.getElementById('resultText').innerHTML = `
+        <div class="recommendation-result">
+          <div class="diagnosis-section">
+            <h3>Диагностика:</h3>
+            <p>${rep.diagnosis}</p>
+          </div>
+          
+          <div class="product-section">
+            <h3>Рекомендуемая услуга:</h3>
+            <h4>${rep.product.title || 'Название услуги недоступно'}</h4>
+            <p>${rep.product.short || 'Описание недоступно'}</p>
+            <button id="productDetailsBtn" class="btn" style="margin: 16px 0;">Подробнее</button>
+            <div id="productFullDescription" class="product-description" style="display: none;">
+              ${fullDescription}
+            </div>
+          </div>
+          
+          <div class="action-buttons">
+            <a href="services.html" class="btn btn-primary">Все наши услуги</a>
           </div>
         </div>
+      `;
         
-        <div class="action-buttons">
-          <a href="services.html" class="btn btn-primary">Все наши услуги</a>
-          <a href="https://calendly.com/bemotte/30min" target="_blank" class="btn btn-secondary">Записаться на консультацию</a>
-        </div>
-      </div>
-    `;
-    
-    // Добавляем обработчик для кнопки "Подробнее"
-    const detailsBtn = document.getElementById('productDetailsBtn');
-    const fullDesc = document.getElementById('productFullDescription');
-    
-    if (detailsBtn && fullDesc) {
-      detailsBtn.addEventListener('click', function() {
-        if (fullDesc.style.display === 'none') {
-          fullDesc.style.display = 'block';
-          this.textContent = 'Скрыть';
-        } else {
-          fullDesc.style.display = 'none';
-          this.textContent = 'Подробнее';
-        }
-      });
+      // Добавляем обработчик для кнопки "Подробнее"
+      const detailsBtn = document.getElementById('productDetailsBtn');
+      const fullDesc = document.getElementById('productFullDescription');
+      
+      if (detailsBtn && fullDesc) {
+        detailsBtn.addEventListener('click', function() {
+          if (fullDesc.style.display === 'none') {
+            fullDesc.style.display = 'block';
+            this.textContent = 'Скрыть';
+          } else {
+            fullDesc.style.display = 'none';
+            this.textContent = 'Подробнее';
+          }
+        });
+      }
+      
+      const recommendationsSection = document.getElementById('recommendations');
+      if (recommendationsSection) {
+        recommendationsSection.style.display = 'block';
+        recommendationsSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        console.error('Recommendations section not found');
+        alert('Секция рекомендаций не найдена');
+      }
+    } catch (error) {
+      console.error('Error in generate recommendations:', error);
+      alert('Произошла ошибка при генерации рекомендаций: ' + error.message);
     }
-    document.getElementById('recommendations').style.display = 'block';
-    document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
   }
 });
 
