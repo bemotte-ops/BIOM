@@ -179,9 +179,21 @@ function calculateProfile(answers) {
 }
 
 function generateReport(businessProfile, financeProfile) {
-  if (financeProfile === "F1") return { diagnosis: "Отсутствует системный финансовый менеджмент. Решения принимаются интуитивно, высокие риски кассовых разрывов.", recommendation: "срочное построение финансовой функции с нуля.", productKey: "F1" };
-  if (financeProfile === "F2") return { diagnosis: "Финансы не стали инструментом для роста. Непрозрачность блокирует масштабирование.", recommendation: "проведение аудита и оптимизация процессов.", productKey: "F2" };
-  if (financeProfile === "F3") return { diagnosis: "Квалифицированные сотрудники тонут в рутине. Высоки операционные риски.", recommendation: "внедрение AI и цифровых инструментов для автоматизации.", productKey: "F3" };
+  if (financeProfile === "F1") return { 
+    diagnosis: "Отсутствует системный финансовый менеджмент. Решения принимаются интуитивно, высокие риски кассовых разрывов.", 
+    product: products["F1"],
+    productKey: "F1" 
+  };
+  if (financeProfile === "F2") return { 
+    diagnosis: "Финансы не стали инструментом для роста. Непрозрачность блокирует масштабирование.", 
+    product: products["F2"],
+    productKey: "F2" 
+  };
+  if (financeProfile === "F3") return { 
+    diagnosis: "Квалифицированные сотрудники тонут в рутине. Высоки операционные риски.", 
+    product: products["F3"],
+    productKey: "F3" 
+  };
 
   const map = { agility: "Agile", partnership: "Academy", automation: "F3", system: "OGSM" };
   const key = map[businessProfile] || "OGSM";
@@ -189,7 +201,7 @@ function generateReport(businessProfile, financeProfile) {
     diagnosis: "Выявлен профиль: " + (businessProfile === "agility" ? "Гибкость и скорость" :
               businessProfile === "partnership" ? "Партнерство" :
               businessProfile === "automation" ? "Автоматизация" : "Системность"),
-    recommendation: "Рекомендуем продукт: " + products[key].title,
+    product: products[key],
     productKey: key
   };
 }
@@ -231,10 +243,49 @@ document.getElementById('nextBtn').addEventListener('click', () => {
     const arr = Object.values(answers);
     const { businessProfile, financeProfile } = calculateProfile(arr);
     const rep = generateReport(businessProfile, financeProfile);
+    
+    // Форматируем полное описание для отображения
+    const fullDescription = rep.product.full.replace(/\n/g, '<br>');
+    
     document.getElementById('resultText').innerHTML = `
-      <p>${rep.diagnosis}</p>
-      <p><strong>Рекомендация:</strong> ${rep.recommendation}</p>
+      <div class="recommendation-result">
+        <div class="diagnosis-section">
+          <h3>Диагностика:</h3>
+          <p>${rep.diagnosis}</p>
+        </div>
+        
+        <div class="product-section">
+          <h3>Рекомендуемая услуга:</h3>
+          <h4>${rep.product.title}</h4>
+          <p>${rep.product.short}</p>
+          <button id="productDetailsBtn" class="btn" style="margin: 16px 0;">Подробнее</button>
+          <div id="productFullDescription" class="product-description" style="display: none;">
+            ${fullDescription}
+          </div>
+        </div>
+        
+        <div class="action-buttons">
+          <a href="services.html" class="btn btn-primary">Все наши услуги</a>
+          <a href="https://calendly.com/bemotte/30min" target="_blank" class="btn btn-secondary">Записаться на консультацию</a>
+        </div>
+      </div>
     `;
+    
+    // Добавляем обработчик для кнопки "Подробнее"
+    const detailsBtn = document.getElementById('productDetailsBtn');
+    const fullDesc = document.getElementById('productFullDescription');
+    
+    if (detailsBtn && fullDesc) {
+      detailsBtn.addEventListener('click', function() {
+        if (fullDesc.style.display === 'none') {
+          fullDesc.style.display = 'block';
+          this.textContent = 'Скрыть';
+        } else {
+          fullDesc.style.display = 'none';
+          this.textContent = 'Подробнее';
+        }
+      });
+    }
     document.getElementById('recommendations').style.display = 'block';
     document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
   }

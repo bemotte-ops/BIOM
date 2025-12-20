@@ -5,11 +5,13 @@
 }
 
 :root {
-  --primary: #4A2D80;
-  --primary-hover: #3a2470;
-  --secondary: #CC7A6F;
-  --dark-text: #4A2D80;
-  --light-bg: #F5E9DE;
+  --primary: #48426C;
+  --primary-hover: #3a3558;
+  --secondary: #48426C;
+  --dark-text: #160A3C;
+  --light-bg-1: #F6F0EA;
+  --light-bg-2: #F2F2F2;
+  --light-bg-3: #F0E6DC;
   --header-height: 70px;
 }
 
@@ -44,16 +46,16 @@ h1::after {
   width: 120px;
   height: 4px;
   margin: 12px auto 0;
-  background: linear-gradient(to right, var(--primary), var(--secondary));
+  background: linear-gradient(to right, #160A3C, #F0E6DC);
   border-radius: 2px;
-  box-shadow: 0 2px 4px rgba(74, 45, 128, 0.3);
+  box-shadow: 0 2px 4px rgba(72, 66, 108, 0.3);
 }
 
 /* БЛОКИ — на всю ширину, но с визуальным оформлением */
 .block {
   width: 100%;
   padding: 40px 40px;
-  background: var(--light-bg);
+  background: var(--light-bg-1);
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
   margin: 40px auto;
@@ -302,7 +304,7 @@ input[type="radio"] {
 
 /* ФУТЕР */
 .footer {
-  background: var(--dark-text);
+  background: #160A3C;
   color: white;
   padding: 4px 20px !important;
   margin-top: 40px;
