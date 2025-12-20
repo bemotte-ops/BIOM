@@ -1,82 +1,11 @@
-// Общий JavaScript для всех страниц
+// JavaScript для диагностики (только для главной страницы)
 
 document.addEventListener('DOMContentLoaded', function () {
 
-// === БУРГЕР-МЕНЮ + ЗАКРЫТИЕ ПРИ КЛИКЕ НА ССЫЛКУ ===
-const burger = document.querySelector('.burger-menu');
-const navMenu = document.querySelector('.nav-menu');
-
-console.log('Common script loaded');
-console.log('Burger element:', burger);
-console.log('Nav menu element:', navMenu);
-
-function closeMenu() {
-  if (navMenu) navMenu.classList.remove('active');
-  if (burger) burger.setAttribute('aria-expanded', 'false');
-}
-
-// Открытие/закрытие по кнопке
-if (burger) {
-  burger.addEventListener('click', () => {
-    console.log('Burger clicked');
-    navMenu.classList.toggle('active');
-    burger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
-  });
-} else {
-  console.log('Burger element not found');
-}
-
-// Закрытие при клике на любую ссылку в меню
-if (navMenu) {
-  navMenu.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') {
-      closeMenu();
-    }
-  });
-} else {
-  console.log('Nav menu element not found');
-}
-
-});                          
-
-document.addEventListener('DOMContentLoaded', function () {
-
-// === БУРГЕР-МЕНЮ + ЗАКРЫТИЕ ПРИ КЛИКЕ НА ССЫЛКУ ===
-const burger = document.querySelector('.burger-menu');
-const navMenu = document.querySelector('.nav-menu');
-
-console.log('Common script loaded');
-console.log('Burger element:', burger);
-console.log('Nav menu element:', navMenu);
-
-function closeMenu() {
-  if (navMenu) navMenu.classList.remove('active');
-  if (burger) burger.setAttribute('aria-expanded', 'false');
-}
-
-// Открытие/закрытие по кнопке
-if (burger) {
-  burger.addEventListener('click', () => {
-    console.log('Burger clicked');
-    navMenu.classList.toggle('active');
-    burger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
-  });
-} else {
-  console.log('Burger element not found');
-}
-
-// Закрытие при клике на любую ссылку в меню
-if (navMenu) {
-  navMenu.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') {
-      closeMenu();
-    }
-  });
-} else {
-  console.log('Nav menu element not found');
-}
-
-});                          
+const questions = [
+  { id: 1, text: "Как в вашей компании обычно реализуются новые проекты или стратегические инициативы?", options: [
+    { value: "1A", text: "По четкому годовому плану — отклонения минимальны, приоритеты определены надолго" },
+    { value: "1B", text: "Мы пробуем много идей, но не все \"взлетают\" — сложно доводить до результата" },
     { value: "1C", text: "Есть четкий фокус на 2-3 главных направления — гибко распределяем ресурсы между ними" },
     { value: "1D", text: "Точечные решения под задачи — нет единой системы управления проектами" }
   ]},
@@ -90,7 +19,7 @@ if (navMenu) {
     { value: "3A", text: "В согласованиях и ожидании решений — много встреч, но мало действий" },
     { value: "3B", text: "В рутинной работе с документами — поиск, проверка, перенос данных" },
     { value: "3C", text: "В решении внезапных проблем — \"тушим пожары\" вместо развития" },
-    { value: "3D", text: "В сборе информации для отчетов — данные разрознены" }
+    { value: "3D", text: "В сборе информации для отчетов — данные разрозненны" }
   ]},
   { id: 4, text: "Когда вы в последний раз кардинально меняли подход к работе с клиентами?", options: [
     { value: "4A", text: "В этом году — постоянно тестируем новое" },
@@ -157,7 +86,7 @@ const products = {
   "Agile": {
     title: "Инновации в бизнесе через Agile & Change",
     short: "Комплексный подход к управлению изменениями и разработке продуктов",
-    full: `Мы предлагаем комплексный подход к управлению изменениями и разработке продуктов, который сочетает создание специализированного подразделения Change и внедрение методологии Agile/Scrum. Это позволяет безопасно тестировать новые идеи и масштабировать их в соответствии с потребностями рынка.\n\n**Эффект:**\nСнижение рисков, фокус на прибыль, конкурентное преимущество, гибкость и скорость вывода продуктов. Успешный выход на рынок с нуля и достижение лидерских позиций за 3 года.`
+    full: `Мы предлагаем комплексный подход к управлению изменениями и разработкой продуктов, который сочетает создание специализированного подразделения Change и внедрение методологии Agile/Scrum. Это позволяет безопасно тестировать новые идеи и масштабировать их в соответствии с потребностями рынка.\n\n**Эффект:**\nСнижение рисков, фокус на прибыль, конкурентное преимущество, гибкость и скорость вывода продуктов. Успешный выход на рынок с нуля и достижение лидерских позиций за 3 года.`
   },
   "Academy": {
     title: "Академия Развития Клиентов и Партнеров",
@@ -434,39 +363,4 @@ if (prevBtn) {
   });
 }
 
-// === БУРГЕР-МЕНЮ + ЗАКРЫТИЕ ПРИ КЛИКЕ НА ССЫЛКУ ===
-const burger = document.querySelector('.burger-menu');
-const navMenu = document.querySelector('.nav-menu');
-
-console.log('Burger menu script loaded');
-console.log('Burger element:', burger);
-console.log('Nav menu element:', navMenu);
-
-function closeMenu() {
-  if (navMenu) navMenu.classList.remove('active');
-  if (burger) burger.setAttribute('aria-expanded', 'false');
-}
-
-// Открытие/закрытие по кнопке
-if (burger) {
-  burger.addEventListener('click', () => {
-    console.log('Burger clicked');
-    navMenu.classList.toggle('active');
-    burger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
-  });
-} else {
-  console.log('Burger element not found');
-}
-
-// Закрытие при клике на любую ссылку в меню
-if (navMenu) {
-  navMenu.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') {
-      closeMenu();
-    }
-  });
-} else {
-  console.log('Nav menu element not found');
-}
-
-});                          
+});
