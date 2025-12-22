@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <title>Диагностика кнопки "Получить рекомендации"</title>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <span class="site-title">Icon People - Диагностика</span>
+  </div>
+</header>
+
+<section class="block">
+  <h1>Диагностика работы кнопки "Получить рекомендации"</h1>
+  <div id="diagnostics" style="background: #f0f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>Статус диагностики:</h3>
+    <div id="status">Инициализация...</div>
+  </div>
+</section>
+
+<section id="quiz" class="block">
+  <h2>Тестовый опросник (3 вопроса)</h2>
+  <p id="quizIntro">Упрощенная версия для диагностики</p>
+  <div id="quizContainer" style="min-height: 140px;"></div>
+  <div id="quizControls" style="margin-top: 20px; text-align: right;">
+    <button id="prevBtn" class="btn" style="display:none; background:#6c757d;">Назад</button>
+    <button id="nextBtn" class="btn">Далее</button>
+  </div>
+</section>
+  
+<section id="recommendations" class="block" style="display:none;">
+  <h2>Результат диагностики</h2>
+  <div id="resultText"></div>
+</section>
+
+<script>
+// Диагностическая функция для логирования
+function logStatus(message, isError = false) {
+  const statusDiv = document.getElementById('status');
+  const timestamp = new Date().toLocaleTimeString();
+  const logEntry = document.createElement('div');
+  logEntry.style.color = isError ? 'red' : 'green';
+  logEntry.innerHTML = `<strong>[${timestamp}]</strong> ${message}`;
+  statusDiv.appendChild(logEntry);
+  console.log(message);
+}
+
+// Сокращенный набор вопросов для быстрого тестирования
+const questions = [
+  { id: 1, text: "Как в вашей компании обычно реализуются новые проекты?", options: [
+    { value: "1A", text: "По четкому плану" },
+    { value: "1B", text: "Пробуем много идей" },
+    { value: "1C", text: "Есть фокус на главном" },
+    { value: "1D", text: "Точечные решения" }
+  ]},
+  { id: 2, text: "Как строится взаимодействие с клиентами?", options: [
+    { value: "2A", text: "Транзакционно" },
+    { value: "2B", text: "Стараемся строить отношения" },
+    { value: "2C", text: "Совместное планирование" },
+    { value: "2D", text: "Каждый по-своему" }
+  ]},
+  { id: 3, text: "Как вы оцениваете эффективность бизнеса?", options: [
+    { value: "7A", text: "По финансовым показателям" },
+    { value: "7B", text: "По выполнению планов" },
+    { value: "7C", text: "По динамике процессов" },
+    { value: "7D", text: "По удовлетворенности клиентов" }
+  ]}
+];
+
+// Продукты (только основные)
+const products = {
+  "OGSM": {
+    title: "Адаптивная система стратегического управления OGSM",
+    short: "OGSM — это не просто методология, а «живая» система управления компанией",
+    full: "OGSM — это не просто методология, а «живая» система управления компанией. Её суть — в создании эффективной связки между долгосрочным видением (3-5 лет) и ежедневными действиями каждого сотрудника через прозрачные стратегические инициативы, KPI и регулярный трекинг."
+  },
+  "Agile": {
+    title: "Инновации в бизнесе через Agile & Change",
+    short: "Комплексный подход к управлению изменениями и разработке продуктов",
+    full: "Мы предлагаем комплексный подход к управлению изменениями и разработке продуктов, который сочетает создание специализированного подразделения Change и внедрение методологии Agile/Scrum."
+  },
+  "Academy": {
+    title: "Академия Развития Клиентов и Партнеров",
+    short: "От транзакций к стратегическому партнёрству",
+    full: "Подход направлен на создание устойчивых и взаимовыгодных отношений, превращая обычные транзакции в долгосрочные стратегические союзы."
+  },
+  "F2": {
+    title: "Финансовый анализ и дорожная карта",
+    short: "От хаоса в финансах — к прозрачной системе за 4 недели",
+    full: "Экспресс-аудит финансовой функции и бизнес-процессов компании с разработкой пошагового плана трансформации (дорожной карты)."
+  }
+};
+
+// Веса для расчета (только для тестовых вопросов)
+const weights = {
+  "1A": { agility: 0, partnership: 0, automation: 1, system: 2 },
+  "1B": { agility: 3, partnership: 1, automation: 0, system: 0 },
+  "1C": { agility: 2, partnership: 2, automation: 0, system: 3 },
+  "1D": { agility: 1, partnership: 0, automation: 2, system: 1 },
+  "2A": { agility: 0, partnership: 0, automation: 1, system: 1 },
+  "2B": { agility: 1, partnership: 2, automation: 0, system: 1 },
+  "2C": { agility: 2, partnership: 3, automation: 1, system: 2 },
+  "2D": { agility: 0, partnership: 1, automation: 0, system: 0 },
+  "7A": { agility: 0, partnership: 0, automation: 2, system: 2 },
+  "7B": { agility: 1, partnership: 1, automation: 1, system: 2 },
+  "7C": { agility: 2, partnership: 1, automation: 3, system: 2 },
+  "7D": { agility: 1, partnership: 3, automation: 0, system: 1 }
+};
+
+function calculateProfile(answers) {
+  logStatus("Начинаем расчет профиля...");
+  let scores = { agility: 0, partnership: 0, automation: 0, system: 0, F_SYS: 0, F_AUTO: 0, F_GROW: 0 };
+  
+  answers.forEach(ans => {
+    const w = weights[ans];
+    if (w) {
+      for (let key in w) scores[key] += w[key];
+      logStatus(`Применен вес для ответа ${ans}: +${JSON.stringify(w)}`);
+    } else {
+      logStatus(`ВНИМАНИЕ: Не найден вес для ответа ${ans}`, true);
+    }
+  });
+
+  logStatus(`Итоговые баллы: ${JSON.stringify(scores)}`);
+
+  const businessKeys = ['agility', 'partnership', 'automation', 'system'];
+  const businessScores = businessKeys.reduce((obj, key) => ({...obj, [key]: scores[key]}), {});
+  const maxBusiness = Math.max(...Object.values(businessScores));
+  let businessProfile = Object.keys(businessScores).find(k => businessScores[k] === maxBusiness);
+
+  let financeProfile = "F2"; // По умолчанию
+  
+  logStatus(`Определен бизнес-профиль: ${businessProfile}`);
+  logStatus(`Определен финансовый профиль: ${financeProfile}`);
+
+  return { businessProfile, financeProfile };
+}
+
+function generateReport(businessProfile, financeProfile) {
+  logStatus(`Генерация отчета для профилей: бизнес=${businessProfile}, финансы=${financeProfile}`);
+  
+  // Сначала проверяем финансовый профиль
+  if (financeProfile === "F2") {
+    logStatus("Выбран финансовый профиль F2");
+    return { 
+      diagnosis: "Финансы не стали инструментом для роста. Непрозрачность блокирует масштабирование.", 
+      product: products["F2"],
+      productKey: "F2" 
+    };
+  }
+
+  // Если финансовый профиль не определен, используем бизнес-профиль
+  const map = { 
+    agility: "Agile", 
+    partnership: "Academy", 
+    automation: "F2", 
+    system: "OGSM" 
+  };
+  const key = map[businessProfile] || "OGSM";
+  
+  logStatus(`Выбран продукт: ${key}`);
+  
+  // Проверяем, что продукт существует
+  if (!products[key]) {
+    logStatus(`ОШИБКА: Продукт не найден для ключа: ${key}`, true);
+    return {
+      diagnosis: "Выявлен профиль: Системность",
+      product: products["OGSM"],
+      productKey: "OGSM"
+    };
+  }
+  
+  return {
+    diagnosis: `Выявлен профиль: ${businessProfile === "agility" ? "Гибкость и скорость" :
+              businessProfile === "partnership" ? "Партнерство" :
+              businessProfile === "automation" ? "Автоматизация" : "Системность"}`,
+    product: products[key],
+    productKey: key
+  };
+}
+
+// Основные переменные
+let currentStep = 0;
+const answers = {};
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', function () {
+  logStatus("Страница загружена, начинаем инициализацию...");
+  
+  // Проверяем наличие необходимых элементов
+  const elements = ['quizContainer', 'nextBtn', 'prevBtn', 'recommendations', 'resultText'];
+  elements.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      logStatus(`Элемент ${id} найден`);
+    } else {
+      logStatus(`ОШИБКА: Элемент ${id} не найден!`, true);
+    }
+  });
+  
+  logStatus(`Всего вопросов в опроснике: ${questions.length}`);
+  showQuestion(currentStep);
+});
+
+function showQuestion(step) {
+  logStatus(`Показываем вопрос ${step + 1} из ${questions.length}`);
+  const q = questions[step];
+  let html = `<p><strong>${q.text}</strong></p><div style="margin-top:12px;">`;
+  
+  q.options.forEach(opt => {
+    const checked = answers[q.id] === opt.value ? 'checked' : '';
+    html += `<label><input type="radio" name="q${q.id}" value="${opt.value}" ${checked}> ${opt.text}</label>`;
+  });
+  html += `</div>`;
+  
+  document.getElementById('quizContainer').innerHTML = html;
+  
+  document.getElementById('prevBtn').style.display = step === 0 ? 'none' : 'inline-block';
+  document.getElementById('nextBtn').textContent = step === questions.length - 1 ? 'Получить рекомендации' : 'Далее';
+  document.getElementById('quizIntro').style.display = 'none';
+  
+  logStatus(`Кнопка установлена в состояние: "${document.getElementById('nextBtn').textContent}"`);
+}
+
+function saveAnswer() {
+  const q = questions[currentStep];
+  const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
+  if (sel) { 
+    answers[q.id] = sel.value; 
+    logStatus(`Сохранен ответ для вопроса ${q.id}: ${sel.value}`);
+    return true; 
+  }
+  logStatus(`Пользователь не выбрал ответ для вопроса ${q.id}`, true);
+  alert('Пожалуйста, выберите вариант ответа.'); 
+  return false;
+}
+
+// Обработчики событий
+document.getElementById('nextBtn').addEventListener('click', () => {
+  logStatus("Нажата кнопка 'Далее/Получить рекомендации'");
+  logStatus(`Текущий шаг: ${currentStep}, всего шагов: ${questions.length - 1}`);
+  
+  if (!saveAnswer()) return;
+  
+  if (currentStep < questions.length - 1) {
+    logStatus("Переходим к следующему вопросу");
+    currentStep++;
+    showQuestion(currentStep);
+  } else {
+    logStatus("Это последний вопрос! Генерируем рекомендации...");
+    
+    try {
+      const arr = Object.values(answers);
+      logStatus(`Все ответы: ${JSON.stringify(answers)}`);
+      logStatus(`Массив ответов: ${JSON.stringify(arr)}`);
+      
+      const { businessProfile, financeProfile } = calculateProfile(arr);
+      logStatus(`Результат calculateProfile: бизнес=${businessProfile}, финансы=${financeProfile}`);
+      
+      const rep = generateReport(businessProfile, financeProfile);
+      logStatus(`Результат generateReport: ${JSON.stringify(rep)}`);
+      
+      if (!rep || !rep.product) {
+        logStatus("ОШИБКА: Некорректный отчет", true);
+        alert('Произошла ошибка при генерации рекомендаций. Попробуйте пройти опрос заново.');
+        return;
+      }
+      
+      // Форматируем полное описание для отображения
+      const fullDescription = rep.product.full ? rep.product.full.replace(/\n/g, '<br>') : 'Описание недоступно';
+      
+      document.getElementById('resultText').innerHTML = `
+        <div class="recommendation-result">
+          <div class="diagnosis-section">
+            <h3>Диагностика:</h3>
+            <p>${rep.diagnosis}</p>
+          </div>
+          
+          <div class="product-section">
+            <h3>Рекомендуемая услуга:</h3>
+            <h4>${rep.product.title || 'Название услуги недоступно'}</h4>
+            <p>${rep.product.short || 'Описание недоступно'}</p>
+            <button id="productDetailsBtn" class="btn" style="margin: 16px 0;">Подробнее</button>
+            <div id="productFullDescription" class="product-description" style="display: none;">
+              ${fullDescription}
+            </div>
+          </div>
+          
+          <div class="action-buttons">
+            <a href="services.html" class="btn btn-primary">Все наши услуги</a>
+            <a href="https://calendly.com/bemotte/30min" target="_blank" class="btn btn-secondary">Записаться на консультацию</a>
+          </div>
+        </div>
+      `;
+      
+      // Добавляем обработчик для кнопки "Подробнее"
+      const detailsBtn = document.getElementById('productDetailsBtn');
+      const fullDesc = document.getElementById('productFullDescription');
+      
+      if (detailsBtn && fullDesc) {
+        detailsBtn.addEventListener('click', function() {
+          if (fullDesc.style.display === 'none') {
+            fullDesc.style.display = 'block';
+            this.textContent = 'Скрыть';
+          } else {
+            fullDesc.style.display = 'none';
+            this.textContent = 'Подробнее';
+          }
+        });
+        logStatus("Обработчик кнопки 'Подробнее' добавлен");
+      }
+      
+      const recommendationsSection = document.getElementById('recommendations');
+      if (recommendationsSection) {
+        recommendationsSection.style.display = 'block';
+        recommendationsSection.scrollIntoView({ behavior: 'smooth' });
+        logStatus("Секция рекомендаций показана");
+      } else {
+        logStatus("ОШИБКА: Секция рекомендаций не найдена", true);
+        alert('Секция рекомендаций не найдена');
+      }
+      
+      logStatus("✅ УСПЕХ: Рекомендации сгенерированы и отображены!");
+      
+    } catch (error) {
+      logStatus(`ОШИБКА при генерации рекомендаций: ${error.message}`, true);
+      console.error('Error in generate recommendations:', error);
+      alert('Произошла ошибка при генерации рекомендаций: ' + error.message);
+    }
+  }
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  logStatus("Нажата кнопка 'Назад'");
+  if (currentStep > 0) {
+    currentStep--;
+    showQuestion(currentStep);
+  }
+});
+</script>
+
+</body>
+</html>

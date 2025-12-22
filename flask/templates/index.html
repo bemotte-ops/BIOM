@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мудборд - Главная</title>
+    <style>
+        :root {
+            --primary-bg: {{ palette.primary_bg }};
+            --secondary-bg: {{ palette.secondary_bg }};
+            --neutral: {{ palette.neutral }};
+            --accent-brown: {{ palette.accent_brown }};
+            --light-cream: {{ palette.light_cream }};
+            --dark-text: {{ palette.dark_text }};
+            --accent-purple: {{ palette.accent_purple }};
+            --accent-purple-dark: {{ palette.accent_purple_dark }};
+            --accent-terracotta: {{ palette.accent_terracotta }};
+            --accent-terracotta-dark: {{ palette.accent_terracotta_dark }};
+            --accent-terracotta-deep: {{ palette.accent_terracotta_deep }};
+            --navy-blue: {{ palette.navy_blue }};
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            min-height: 100vh;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-terracotta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .palette-showcase {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .color-group {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .color-row {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .color-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 120px;
+        }
+
+        .color-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-group {
+            margin-bottom: 3rem;
+        }
+
+        .color-group-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .color-subgroup {
+            margin-bottom: 2rem;
+        }
+
+        .color-subgroup-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--accent-purple);
+            text-align: left;
+            padding-left: 1rem;
+        }
+
+        .color-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .color-code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin: 0.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+            color: white;
+            box-shadow: 0 5px 15px rgba(111, 66, 193, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(111, 66, 193, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--accent-terracotta), var(--accent-terracotta-dark));
+            color: white;
+            box-shadow: 0 5px 15px rgba(204, 122, 111, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204, 122, 111, 0.4);
+        }
+
+        .color-wheel {
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .color-wheel h2 {
+            color: var(--dark-text);
+            margin-bottom: 2rem;
+        }
+
+        .wheel-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .color-wheel-svg {
+            width: 400px;
+            height: 400px;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+        }
+
+        .wheel-segment {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wheel-segment:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .color-info {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .color-info h3 {
+            color: var(--accent-purple);
+            margin-bottom: 1rem;
+        }
+
+        .color-combos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .combo-type {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-terracotta);
+        }
+
+        .combo-type h4 {
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .combo-colors {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .combo-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .feature h3 {
+            color: var(--dark-text);
+            margin-bottom: 1rem;
+        }
+
+        .feature p {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .palette-showcase {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Мудборд</h1>
+            <p class="subtitle">Создавайте визуальные коллажи и вдохновляйтесь цветом</p>
+        </header>
+
+        <div class="color-row">
+            <!-- Основная гамма -->
+            <div class="color-group">
+                <div class="color-group-title">🌿 Основная гамма</div>
+                <div class="palette-showcase">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.primary_bg }};"></div>
+                        <div class="color-name">Светлая Слоновая Кость</div>
+                        <div class="color-code">{{ palette.primary_bg }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.secondary_bg }};"></div>
+                        <div class="color-name">Светло-бежевый</div>
+                        <div class="color-code">{{ palette.secondary_bg }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.neutral }};"></div>
+                        <div class="color-name">Тан</div>
+                        <div class="color-code">{{ palette.neutral }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Коричневато-бежевая гамма -->
+            <div class="color-group">
+                <div class="color-group-title">🤎 Коричневато-бежевая гамма</div>
+                <div class="palette-showcase">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.brown_light }};"></div>
+                        <div class="color-name">Светло-коричневый</div>
+                        <div class="color-code">{{ palette.brown_light }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.brown_medium }};"></div>
+                        <div class="color-name">Средне-коричневый</div>
+                        <div class="color-code">{{ palette.brown_medium }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.brown }};"></div>
+                        <div class="color-name">Коричневый</div>
+                        <div class="color-code">{{ palette.brown }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.brown_dark }};"></div>
+                        <div class="color-name">Тёмно-коричневый</div>
+                        <div class="color-code">{{ palette.brown_dark }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.brown_deep }};"></div>
+                        <div class="color-name">Глубокий коричневый</div>
+                        <div class="color-code">{{ palette.brown_deep }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Кремовая гамма -->
+            <div class="color-group">
+                <div class="color-group-title">🧡 Кремовая гамма</div>
+                <div class="palette-showcase">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.cream_very_light }};"></div>
+                        <div class="color-name">Очень светлый крем</div>
+                        <div class="color-code">{{ palette.cream_very_light }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.cream_light }};"></div>
+                        <div class="color-name">Светлый крем</div>
+                        <div class="color-code">{{ palette.cream_light }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.cream }};"></div>
+                        <div class="color-name">Крем</div>
+                        <div class="color-code">{{ palette.cream }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.cream_medium }};"></div>
+                        <div class="color-name">Средний крем</div>
+                        <div class="color-code">{{ palette.cream_medium }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.cream_dark }};"></div>
+                        <div class="color-name">Тёмный крем</div>
+                        <div class="color-code">{{ palette.cream_dark }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Синяя гамма -->
+            <div class="color-group">
+                <div class="color-group-title">💙 Синяя гамма</div>
+                <div class="palette-showcase">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.blue_light }};"></div>
+                        <div class="color-name">Светло-синий</div>
+                        <div class="color-code">{{ palette.blue_light }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.blue_medium }};"></div>
+                        <div class="color-name">Средне-синий</div>
+                        <div class="color-code">{{ palette.blue_medium }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.blue }};"></div>
+                        <div class="color-name">Синий</div>
+                        <div class="color-code">{{ palette.blue }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.blue_dark }};"></div>
+                        <div class="color-name">Тёмно-синий</div>
+                        <div class="color-code">{{ palette.blue_dark }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.blue_deep }};"></div>
+                        <div class="color-name">Глубокий синий</div>
+                        <div class="color-code">{{ palette.blue_deep }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Фиолетовая гамма -->
+            <div class="color-group">
+                <div class="color-group-title">💜 Фиолетовая гамма</div>
+                <div class="palette-showcase">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.dark_text }};"></div>
+                        <div class="color-name">Тёмный Future Dusk</div>
+                        <div class="color-code">{{ palette.dark_text }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.accent_purple }};"></div>
+                        <div class="color-name">Future Dusk</div>
+                        <div class="color-code">{{ palette.accent_purple }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.accent_purple_dark }};"></div>
+                        <div class="color-name">Тёмно-фиолетовый</div>
+                        <div class="color-code">{{ palette.accent_purple_dark }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Терракотовая гамма -->
+            <div class="color-group">
+                <div class="color-group-title">🧡 Терракотовая гамма</div>
+                <div class="palette-showcase">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.accent_terracotta }};"></div>
+                        <div class="color-name">Приглушённая Терракота</div>
+                        <div class="color-code">{{ palette.accent_terracotta }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.accent_terracotta_dark }};"></div>
+                        <div class="color-name">Тёмно-терракотовый</div>
+                        <div class="color-code">{{ palette.accent_terracotta_dark }}</div>
+                    </div>
+                    <div class="color-card">
+                        <div class="color-swatch" style="background-color: {{ palette.accent_terracotta_deep }};"></div>
+                        <div class="color-name">Глубокий Терракотовый</div>
+                        <div class="color-code">{{ palette.accent_terracotta_deep }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Визуальное творчество</h3>
+                <p>Создавайте коллажи из изображений, текста и графических элементов</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🌈</div>
+                <h3>Цветовая гармония</h3>
+                <p>Исследуйте сочетания цветов и создавайте гармоничные композиции</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">💾</div>
+                <h3>Сохранение проектов</h3>
+                <p>Сохраняйте свои мудборды и возвращайтесь к ним в любое время</p>
+            </div>
+        </div>
+
+        <!-- Круг Иттена -->
+        <div class="color-wheel">
+            <h2>🎨 Цветовой круг Иттена</h2>
+            <p>Изучите основы цветовой теории для создания гармоничных композиций</p>
+            
+            <div class="wheel-container">
+                <svg class="color-wheel-svg" viewBox="0 0 400 400">
+                    <!-- Центральный круг -->
+                    <circle cx="200" cy="200" r="80" fill="#f8f9fa" stroke="#e9ecef" stroke-width="2"/>
+                    <text x="200" y="195" text-anchor="middle" font-size="14" fill="#4A2D80" font-weight="bold">Цветовой</text>
+                    <text x="200" y="210" text-anchor="middle" font-size="14" fill="#4A2D80" font-weight="bold">круг</text>
+                    
+                    <!-- 6 основных сегментов круга (каждый по 60 градусов) -->
+                    <!-- Красный (0-60°) -->
+                    <path d="M 200 200 L 200 40 A 160 160 0 0 1 338.56 130.44 Z" 
+                          fill="#FF0000" class="wheel-segment" data-color="Красный"/>
+                    
+                    <!-- Оранжевый (60-120°) -->
+                    <path d="M 200 200 L 338.56 130.44 A 160 160 0 0 1 200 360 Z" 
+                          fill="#FF8000" class="wheel-segment" data-color="Оранжевый"/>
+                    
+                    <!-- Жёлтый (120-180°) -->
+                    <path d="M 200 200 L 200 360 A 160 160 0 0 1 61.44 269.56 Z" 
+                          fill="#FFFF00" class="wheel-segment" data-color="Жёлтый"/>
+                    
+                    <!-- Зелёный (180-240°) -->
+                    <path d="M 200 200 L 61.44 269.56 A 160 160 0 0 1 200 40 Z" 
+                          fill="#00FF00" class="wheel-segment" data-color="Зелёный"/>
+                    
+                    <!-- Синий (240-300°) -->
+                    <path d="M 200 200 L 200 40 A 160 160 0 0 1 338.56 269.56 Z" 
+                          fill="#0000FF" class="wheel-segment" data-color="Синий"/>
+                    
+                    <!-- Фиолетовый (300-360°) -->
+                    <path d="M 200 200 L 338.56 269.56 A 160 160 0 0 1 61.44 130.44 Z" 
+                          fill="#8000FF" class="wheel-segment" data-color="Фиолетовый"/>
+                </svg>
+            </div>
+            
+            <div class="color-info">
+                <h3>Что такое круг Иттена?</h3>
+                <p>Цветовой круг Иттена — это инструмент для понимания взаимосвязи цветов. Он состоит из 12 сегментов, разделённых на три группы:</p>
+                
+                <div class="color-combos">
+                    <div class="combo-type">
+                        <h4>🔴 Основные цвета</h4>
+                        <p>Не получаются путём смешивания</p>
+                        <div class="combo-colors">
+                            <div class="combo-color" style="background: #FF0000;"></div>
+                            <div class="combo-color" style="background: #0000FF;"></div>
+                            <div class="combo-color" style="background: #FFFF00;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="combo-type">
+                        <h4>🟠 Вторичные цвета</h4>
+                        <p>Получаются смешиванием основных</p>
+                        <div class="combo-colors">
+                            <div class="combo-color" style="background: #FF8000;"></div>
+                            <div class="combo-color" style="background: #00FF00;"></div>
+                            <div class="combo-color" style="background: #8000FF;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="combo-type">
+                        <h4>🟡 Третичные цвета</h4>
+                        <p>Смешивание основных и вторичных</p>
+                        <div class="combo-colors">
+                            <div class="combo-color" style="background: #FF4000;"></div>
+                            <div class="combo-color" style="background: #40FF00;"></div>
+                            <div class="combo-color" style="background: #0040FF;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 2rem;">Правила комбинации цветов</h3>
+                <div class="color-combos">
+                    <div class="combo-type">
+                        <h4>🔄 Комплементарные</h4>
+                        <p>Находятся напротив друг друга</p>
+                        <div class="combo-colors">
+                            <div class="combo-color" style="background: #FF0000;"></div>
+                            <div class="combo-color" style="background: #00FF00;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="combo-type">
+                        <h4>🔗 Аналогичные</h4>
+                        <p>Три соседних цвета</p>
+                        <div class="combo-colors">
+                            <div class="combo-color" style="background: #FF0000;"></div>
+                            <div class="combo-color" style="background: #FF4000;"></div>
+                            <div class="combo-color" style="background: #FF8000;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="combo-type">
+                        <h4>⚪ Монохромная</h4>
+                        <p>Оттенки одного цвета</p>
+                        <div class="combo-colors">
+                            <div class="combo-color" style="background: #FF0000;"></div>
+                            <div class="combo-color" style="background: #FF4040;"></div>
+                            <div class="combo-color" style="background: #FF8080;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="combo-type">
+                        <h4>🔺 Триада</h4>
+                        <p>Три цвета, образующие треугольник</p>
+                        <div class="combo-colors">
+                            <div class="combo-color" style="background: #FF0000;"></div>
+                            <div class="combo-color" style="background: #0000FF;"></div>
+                            <div class="combo-color" style="background: #FFFF00;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <a href="/moodboard" class="btn btn-primary">Создать мудборд</a>
+            <a href="#about" class="btn btn-secondary">Узнать больше</a>
+        </div>
+    </div>
+
+    <script>
+        // Анимация появления карточек
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.color-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+
+            // Интерактивность круга Иттена
+            const wheelSegments = document.querySelectorAll('.wheel-segment');
+            
+            wheelSegments.forEach(segment => {
+                segment.addEventListener('mouseenter', function() {
+                    const colorName = this.getAttribute('data-color');
+                    this.style.opacity = '1';
+                    this.style.transform = 'scale(1.1)';
+                    
+                    // Показать информацию о цвете
+                    showColorInfo(colorName, this.getAttribute('fill'));
+                });
+                
+                segment.addEventListener('mouseleave', function() {
+                    this.style.opacity = '0.7';
+                    this.style.transform = 'scale(1)';
+                    hideColorInfo();
+                });
+            });
+        });
+
+        function showColorInfo(colorName, colorHex) {
+            // Создаем tooltip с информацией о цвете
+            const tooltip = document.createElement('div');
+            tooltip.id = 'color-tooltip';
+            tooltip.style.cssText = `
+                position: fixed;
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-size: 14px;
+                pointer-events: none;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            `;
+            tooltip.innerHTML = `<strong>${colorName}</strong><br>${colorHex}`;
+            document.body.appendChild(tooltip);
+            
+            // Позиционируем tooltip
+            document.addEventListener('mousemove', positionTooltip);
+        }
+
+        function positionTooltip(e) {
+            const tooltip = document.getElementById('color-tooltip');
+            if (tooltip) {
+                tooltip.style.left = (e.clientX + 10) + 'px';
+                tooltip.style.top = (e.clientY - 40) + 'px';
+            }
+        }
+
+        function hideColorInfo() {
+            const tooltip = document.getElementById('color-tooltip');
+            if (tooltip) {
+                tooltip.remove();
+            }
+            document.removeEventListener('mousemove', positionTooltip);
+        }
+    </script>
+</body>
+</html>

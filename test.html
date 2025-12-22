@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <title>Тест кнопки "Получить рекомендации"</title>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <span class="site-title">Icon People</span>
+  </div>
+  
+  <nav class="nav-menu">
+    <ul>
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="index.html#quiz">Диагностика</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section id="quiz" class="block">
+  <h1>Диагностика вашего бизнеса</h1>
+  <p id="quizIntro">Тестовая версия опросника</p>
+  <div id="quizContainer" style="min-height: 140px;"></div>
+  <div id="quizControls" style="margin-top: 20px; text-align: right;">
+    <button id="prevBtn" class="btn" style="display:none; background:#6c757d;">Назад</button>
+    <button id="nextBtn" class="btn">Далее</button>
+  </div>
+</section>
+  
+<section id="recommendations" class="block" style="display:none;">
+  <h2>Ваш персональный отчёт</h2>
+  <div id="resultText"></div>
+</section>
+
+<script>
+// Скопируем только тестовые данные из script.js
+const questions = [
+  { id: 1, text: "Тестовый вопрос 1?", options: [
+    { value: "1A", text: "Вариант A" },
+    { value: "1B", text: "Вариант B" },
+    { value: "1C", text: "Вариант C" },
+    { value: "1D", text: "Вариант D" }
+  ]}
+];
+
+const products = {
+  "OGSM": {
+    title: "Тестовая услуга OGSM",
+    short: "Это тестовая услуга",
+    full: "Полное описание тестовой услуги"
+  }
+};
+
+const weights = {
+  "1A": { agility: 0, partnership: 0, automation: 1, system: 2 },
+  "1B": { agility: 3, partnership: 1, automation: 0, system: 0 },
+  "1C": { agility: 2, partnership: 2, automation: 0, system: 3 },
+  "1D": { agility: 1, partnership: 0, automation: 2, system: 1 }
+};
+
+function calculateProfile(answers) {
+  let scores = { agility: 0, partnership: 0, automation: 0, system: 0, F_SYS: 0, F_AUTO: 0, F_GROW: 0 };
+  answers.forEach(ans => {
+    const w = weights[ans];
+    if (w) for (let key in w) scores[key] += w[key];
+  });
+
+  const businessKeys = ['agility', 'partnership', 'automation', 'system'];
+  const businessScores = businessKeys.reduce((obj, key) => ({...obj, [key]: scores[key]}), {});
+  const maxBusiness = Math.max(...Object.values(businessScores));
+  let businessProfile = Object.keys(businessScores).find(k => businessScores[k] === maxBusiness);
+
+  let financeProfile = "F2";
+  if (scores.F_SYS <= 2 && scores.F_AUTO <= 1 && scores.F_GROW <= 1) financeProfile = "F1";
+  if (scores.F_AUTO >= 3 && scores.F_SYS >= 2) financeProfile = "F3";
+
+  return { businessProfile, financeProfile };
+}
+
+function generateReport(businessProfile, financeProfile) {
+  const map = { agility: "OGSM", partnership: "OGSM", automation: "OGSM", system: "OGSM" };
+  const key = map[businessProfile] || "OGSM";
+  
+  if (!products[key]) {
+    console.error('Product not found for key:', key);
+    return {
+      diagnosis: "Выявлен профиль: Системность",
+      product: products["OGSM"],
+      productKey: "OGSM"
+    };
+  }
+  
+  return {
+    diagnosis: "Тестовая диагностика",
+    product: products[key],
+    productKey: key
+  };
+}
+
+let currentStep = 0;
+const answers = {};
+
+function showQuestion(step) {
+  const q = questions[step];
+  let html = `<p><strong>${q.text}</strong></p><div style="margin-top:12px;">`;
+  q.options.forEach(opt => {
+    const checked = answers[q.id] === opt.value ? 'checked' : '';
+    html += `<label><input type="radio" name="q${q.id}" value="${opt.value}" ${checked}> ${opt.text}</label>`;
+  });
+  html += `</div>`;
+  document.getElementById('quizContainer').innerHTML = html;
+  
+  document.getElementById('prevBtn').style.display = step === 0 ? 'none' : 'inline-block';
+  document.getElementById('nextBtn').textContent = step === questions.length - 1 ? 'Получить рекомендации' : 'Далее';
+  document.getElementById('quizIntro').style.display = 'none';
+}
+
+function saveAnswer() {
+  const q = questions[currentStep];
+  const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
+  if (sel) { 
+    answers[q.id] = sel.value; 
+    console.log(`Saved answer for question ${q.id}:`, sel.value);
+    return true; 
+  }
+  alert('Пожалуйста, выберите вариант ответа.'); 
+  return false;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  showQuestion(currentStep);
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (!saveAnswer()) return;
+    if (currentStep < questions.length - 1) {
+      currentStep++;
+      showQuestion(currentStep);
+    } else {
+      try {
+        const arr = Object.values(answers);
+        console.log('Answers:', answers);
+        console.log('Answers array:', arr);
+        
+        const { businessProfile, financeProfile } = calculateProfile(arr);
+        console.log('Business profile:', businessProfile);
+        console.log('Finance profile:', financeProfile);
+        
+        const rep = generateReport(businessProfile, financeProfile);
+        console.log('Generated report:', rep);
+        
+        if (!rep || !rep.product) {
+          console.error('Invalid report generated:', rep);
+          alert('Произошла ошибка при генерации рекомендаций. Попробуйте пройти опрос заново.');
+          return;
+        }
+        
+        document.getElementById('resultText').innerHTML = `
+          <div class="recommendation-result">
+            <div class="diagnosis-section">
+              <h3>Диагностика:</h3>
+              <p>${rep.diagnosis}</p>
+            </div>
+            
+            <div class="product-section">
+              <h3>Рекомендуемая услуга:</h3>
+              <h4>${rep.product.title || 'Название услуги недоступно'}</h4>
+              <p>${rep.product.short || 'Описание недоступно'}</p>
+            </div>
+          </div>
+        `;
+        
+        const recommendationsSection = document.getElementById('recommendations');
+        if (recommendationsSection) {
+          recommendationsSection.style.display = 'block';
+          recommendationsSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          console.error('Recommendations section not found');
+          alert('Секция рекомендаций не найдена');
+        }
+      } catch (error) {
+        console.error('Error in generate recommendations:', error);
+        alert('Произошла ошибка при генерации рекомендаций: ' + error.message);
+      }
+    }
+  });
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showQuestion(currentStep);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
