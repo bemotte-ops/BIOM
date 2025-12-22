@@ -289,39 +289,55 @@ input[type="radio"] {
     height: 90px; /* Увеличиваем высоту для размещения кнопок в два ряда */
   }
   
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
   .header-left .logo {
-    width: 28px !important; /* Еще больше уменьшаем логотип */
-    height: 28px !important;
+    width: 32px !important; /* Размер логотипа */
+    height: 32px !important;
   }
   
   .header-left .site-title {
-    font-size: 18px !important; /* Уменьшаем название еще больше */
+    font-size: 22px !important; /* Увеличиваем шрифт названия */
     font-weight: normal !important; /* Убираем жирность */
+    line-height: 1;
+    margin: 0;
   }
   
   .header-right {
     display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
     max-width: 50%;
   }
   
   .header-right .btn {
-    padding: 4px 8px !important;
-    font-size: 10px !important;
-    margin-right: 4px !important;
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    margin-right: 0 !important;
     white-space: nowrap;
     flex-shrink: 0;
+    height: 32px; /* Фиксированная высота кнопок */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .header-right .btn-phone {
-    padding: 4px 6px !important;
-    font-size: 9px !important;
-    gap: 2px !important;
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    gap: 4px !important;
     white-space: nowrap;
     flex-shrink: 0;
+    height: 32px; /* Фиксированная высота кнопок */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .burger-menu {
