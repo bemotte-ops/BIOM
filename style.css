@@ -12,7 +12,7 @@
   --light-bg-1: #ffffff;
   --light-bg-2: #F2F2F2;
   --light-bg-3: #F0E6DC;
-  --header-height: 70px;
+  --header-height: 90px;
 }
 
 body {
@@ -192,7 +192,7 @@ section[id] {
 
 /* СТИЛИ ДЛЯ ПОДБЛОКОВ */
 .sub-block {
-  background: #FAF0E6;
+  background: #f8f9fa;
   padding: 24px;
   border-radius: 14px;
   margin: 28px 0;
@@ -286,7 +286,7 @@ input[type="radio"] {
 @media (max-width: 768px) {
   .header {
     padding: 0 12px;
-    height: 50px; /* Еще больше уменьшаем высоту шапки */
+    height: 90px; /* Увеличиваем высоту для размещения кнопок в два ряда */
   }
   
   .header-left .logo {
@@ -338,13 +338,14 @@ input[type="radio"] {
   
   .nav-menu {
     position: absolute;
-    top: var(--header-height);
+    top: 100%;
     left: 0;
     right: 0;
     background: white;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     padding: 16px;
     display: none;
+    z-index: 1000;
   }
   
   .nav-menu.active {
@@ -354,6 +355,18 @@ input[type="radio"] {
   .nav-menu ul {
     flex-direction: column;
     gap: 16px;
+    align-items: stretch;
+  }
+
+  .nav-menu a {
+    display: block;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+
+  .nav-menu a:hover {
+    background: #f8f9fa;
   }
 
   .block {
@@ -593,7 +606,7 @@ input[type="radio"] {
   font-family: 'Patrick Hand', cursive;
   font-size: 48px;
   color: #0D6E85;
-  font-weight: bold;
+  font-weight: normal;
   margin: 0 24px;
   min-width: 80px;
   text-align: center;
@@ -605,6 +618,35 @@ input[type="radio"] {
   display: flex;
   align-items: center;
   gap: 24px;
+}
+
+.factor-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0D6E85, #48426C);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 48px;
+  flex-shrink: 0;
+  flex: 0 0 50%;
+  max-width: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.factor-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.factor-text {
+  flex: 1;
+  flex: 0 0 50%;
+  max-width: 50%;
 }
 
 .factor-image {
