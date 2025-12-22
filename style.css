@@ -338,6 +338,19 @@ input[type="radio"] {
     display: flex;
     align-items: center;
     justify-content: center;
+    order: 2; /* Перемещаем кнопку "Звонок" вниз */
+  }
+  
+  .header-right .btn-primary {
+    order: 1; /* Перемещаем кнопку "Zoom" наверх */
+  }
+  
+  .header-right .btn-primary {
+    background: #160A3C !important;
+  }
+  
+  .header-right .btn-primary:hover {
+    background: #0f0f2a !important;
   }
   
   .burger-menu {
