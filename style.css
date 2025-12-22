@@ -148,6 +148,15 @@ section[id] {
   height: 36px;
 }
 
+/* Цвет кнопки Zoom в шапке */
+.header-right a.btn-primary {
+  background: #160A3C !important;
+}
+
+.header-right a.btn-primary:hover {
+  background: #0f0f2a !important;
+}
+
 /* КНОПКИ */
 .btn,
 .btn-primary {
@@ -345,11 +354,12 @@ input[type="radio"] {
     order: 1; /* Перемещаем кнопку "Zoom" наверх */
   }
   
-  .header-right .btn-primary {
+  /* Цвет кнопки Zoom в мобильной версии */
+  .header-right a.btn-primary {
     background: #160A3C !important;
   }
   
-  .header-right .btn-primary:hover {
+  .header-right a.btn-primary:hover {
     background: #0f0f2a !important;
   }
   
