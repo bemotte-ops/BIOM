@@ -302,7 +302,7 @@ input[type="radio"] {
   }
   
   .header-left .site-title {
-    font-size: 22px !important; /* Увеличиваем шрифт названия */
+    font-size: 22px !important; /* Возвращаем размер шрифта */
     font-weight: normal !important; /* Убираем жирность */
     line-height: 1;
     margin: 0;
@@ -386,7 +386,7 @@ input[type="radio"] {
     gap: 16px;
     align-items: stretch;
   }
-
+  
   .nav-menu a {
     display: block;
     padding: 12px 16px;
