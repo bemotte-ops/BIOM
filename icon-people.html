@@ -52,10 +52,29 @@
     
   <!-- Блок 1: Заголовок с логотипом -->
   <section class="block">
-    <div style="text-align: center; margin: 32px 0;">
+    <div style="position: relative; text-align: center; margin: 32px 0;">
       <img src="logoIP.png" alt="Логотип Icon People" style="width: 150px; height: 150px; margin-bottom: 24px;" onerror="this.style.display='none';">
       <h1 style="color: #0D6E85; font-size: 48px; margin: 0 0 16px 0;">Icon People</h1>
       <p style="font-family: 'Patrick Hand', cursive; font-size: 24px; color: #0D6E85; margin: 0; font-style: italic;">Сообщество профессионалов Business BIOM</p>
+      
+      <!-- Кнопка Партнерство -->
+      <button id="partnershipBtn" class="partnership-btn" style="
+        position: absolute;
+        top: 0;
+        right: 20px;
+        background: linear-gradient(135deg, #0D6E85, #48426C);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(13, 110, 133, 0.3);
+      ">
+        Партнерство
+      </button>
     </div>
     
     <div style="text-align: center; margin: 32px 0;">
@@ -214,5 +233,271 @@
       
   <script src="common.js"></script>
   <script src="script.js"></script>
+
+<!-- Модальное окно формы партнерства -->
+<div id="partnershipModal" style="
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+">
+  <div style="
+    position: relative;
+    margin: 5% auto;
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    animation: modalSlideIn 0.3s ease-out;
+  ">
+    <!-- Заголовок модального окна -->
+    <div style="
+      background: linear-gradient(135deg, #0D6E85, #48426C);
+      color: white;
+      padding: 20px;
+      border-radius: 16px 16px 0 0;
+      position: relative;
+    ">
+      <h2 style="margin: 0; font-size: 24px; text-align: center;">Заявка на партнерство</h2>
+      <button id="closeModal" style="
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">&times;</button>
+    </div>
+    
+    <!-- Форма -->
+    <form id="partnershipForm" style="padding: 30px;">
+      <div style="margin-bottom: 20px;">
+        <label for="firstName" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Имя *</label>
+        <input type="text" id="firstName" name="firstName" required style="
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #e0e6ed;
+          border-radius: 8px;
+          font-size: 16px;
+          transition: border-color 0.3s;
+        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <label for="lastName" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Фамилия *</label>
+        <input type="text" id="lastName" name="lastName" required style="
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #e0e6ed;
+          border-radius: 8px;
+          font-size: 16px;
+          transition: border-color 0.3s;
+        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <label for="phone" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Телефон *</label>
+        <input type="tel" id="phone" name="phone" required style="
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #e0e6ed;
+          border-radius: 8px;
+          font-size: 16px;
+          transition: border-color 0.3s;
+        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <label for="email" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Email *</label>
+        <input type="email" id="email" name="email" required style="
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #e0e6ed;
+          border-radius: 8px;
+          font-size: 16px;
+          transition: border-color 0.3s;
+        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <label for="profession" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Сфера деятельности (профессия) *</label>
+        <select id="profession" name="profession" required style="
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #e0e6ed;
+          border-radius: 8px;
+          font-size: 16px;
+          background: white;
+          transition: border-color 0.3s;
+        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
+          <option value="">Выберите сферу деятельности</option>
+          <option value="finance">Финансы</option>
+          <option value="logistics">Логистика</option>
+          <option value="marketing">Маркетинг</option>
+          <option value="sales">Продажи</option>
+          <option value="it">ИТ</option>
+          <option value="hr">Управление персоналом</option>
+          <option value="legal">Юриспруденция</option>
+          <option value="operations">Операционная деятельность</option>
+          <option value="consulting">Консалтинг</option>
+          <option value="other">Другое</option>
+        </select>
+      </div>
+      
+      <div style="margin-bottom: 30px;">
+        <label for="experience" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Краткое описание опыта<br><small style="color: #666;">Чем можете быть полезны проекту?</small></label>
+        <textarea id="experience" name="experience" rows="4" required style="
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #e0e6ed;
+          border-radius: 8px;
+          font-size: 16px;
+          resize: vertical;
+          font-family: inherit;
+          transition: border-color 0.3s;
+        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'" placeholder="Расскажите о своем опыте, навыках и том, как можете помочь проектам Business BIOM..."></textarea>
+      </div>
+      
+      <button type="submit" style="
+        width: 100%;
+        background: linear-gradient(135deg, #0D6E85, #48426C);
+        color: white;
+        border: none;
+        padding: 15px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(13, 110, 133, 0.3);
+      " onmouseover="this.style.transform='translateY(-2px)' onmouseout="this.style.transform='translateY(0)'">
+        Отправить заявку
+      </button>
+    </form>
+    
+    <!-- Сообщение об успехе -->
+    <div id="successMessage" style="display: none; padding: 40px; text-align: center;">
+      <div style="
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin: 20px;
+      ">
+        <h3 style="margin: 0 0 16px 0; font-size: 24px;">✅ Заявка отправлена!</h3>
+        <p style="margin: 0; font-size: 18px; line-height: 1.5;">Благодарим за ваш отклик. Наш специалист свяжется с вами в ближайшее время.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Стили анимации -->
+<style>
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.partnership-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(13, 110, 133, 0.4) !important;
+}
+
+@media (max-width: 768px) {
+  .partnership-btn {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    margin-top: 20px;
+    display: inline-block;
+  }
+}
+</style>
+
+<script>
+// Обработчики для модального окна
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('partnershipModal');
+  const btn = document.getElementById('partnershipBtn');
+  const closeBtn = document.getElementById('closeModal');
+  const form = document.getElementById('partnershipForm');
+  const successMessage = document.getElementById('successMessage');
+
+  // Открытие модального окна
+  btn.addEventListener('click', function() {
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Закрытие модального окна
+  closeBtn.addEventListener('click', function() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  });
+
+  // Закрытие при клике вне модального окна
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  // Закрытие по Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  // Обработка отправки формы
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Получаем данные формы
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    // Здесь можно добавить отправку данных на сервер
+    console.log('Данные формы:', data);
+    
+    // Показываем сообщение об успехе
+    form.style.display = 'none';
+    successMessage.style.display = 'block';
+    
+    // Автоматическое закрытие через 5 секунд
+    setTimeout(function() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      form.style.display = 'block';
+      successMessage.style.display = 'none';
+      form.reset();
+    }, 5000);
+  });
+});
+</script>
+
 </body>
 </html>
