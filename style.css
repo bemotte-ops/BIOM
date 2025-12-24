@@ -39,17 +39,7 @@ h1 { font-size: 40px; }
 h2 { font-size: 34px; }
 h3 { font-size: 30px; }
 
-/* Только H1 имеет подчёркивание */
-h1::after {
-  content: '';
-  display: block;
-  width: 120px;
-  height: 4px;
-  margin: 12px auto 0;
-  background: linear-gradient(to right, #160A3C, #F0E6DC);
-  border-radius: 2px;
-  box-shadow: 0 2px 4px rgba(72, 66, 108, 0.3);
-}
+/* Подчеркивания заголовков убраны */
 
 /* БЛОКИ — на всю ширину, но с визуальным оформлением */
 .block {
