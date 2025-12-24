@@ -245,16 +245,20 @@
   height: 100%;
   background-color: rgba(0,0,0,0.5);
   backdrop-filter: blur(5px);
+  overflow-y: auto;
+  padding: 20px 0;
 ">
   <div style="
     position: relative;
-    margin: 5% auto;
+    margin: 0 auto;
     width: 90%;
     max-width: 500px;
     background: white;
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     animation: modalSlideIn 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
   ">
     <!-- Заголовок модального окна -->
     <div style="
@@ -287,8 +291,7 @@
     <!-- Форма -->
     <form id="partnershipForm" style="padding: 30px;">
       <div style="margin-bottom: 20px;">
-        <label for="firstName" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Имя *</label>
-        <input type="text" id="firstName" name="firstName" required style="
+        <input type="text" id="firstName" name="firstName" required placeholder="Ваше имя" style="
           width: 100%;
           padding: 12px;
           border: 2px solid #e0e6ed;
@@ -299,8 +302,82 @@
       </div>
       
       <div style="margin-bottom: 20px;">
-        <label for="lastName" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Фамилия *</label>
-        <input type="text" id="lastName" name="lastName" required style="
+        <input type="text" id="lastName" name="lastName" required placeholder="Ваша фамилия" style="
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #e0e6ed;
+          border-radius: 8px;
+          font-size: 16px;
+          transition: border-color 0.3s;
+        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
+      </div>
+      
+      <!-- Поле телефона с кодом страны -->
+      <div style="margin-bottom: 20px;">
+        <div style="display: flex; gap: 8px;">
+          <select id="countryCode" name="countryCode" style="
+            padding: 12px 8px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            transition: border-color 0.3s;
+            min-width: 120px;
+          " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
+            <option value="+7" selected>+7 (Россия)</option>
+            <option value="+375">+375 (Беларусь)</option>
+            <option value="+380">+380 (Украина)</option>
+            <option value="+371">+371 (Латвия)</option>
+            <option value="+370">+370 (Литва)</option>
+            <option value="+372">+372 (Эстония)</option>
+            <option value="+374">+374 (Армения)</option>
+            <option value="+995">+995 (Грузия)</option>
+            <option value="+994">+994 (Азербайджан)</option>
+            <option value="+996">+996 (Киргизия)</option>
+            <option value="+992">+992 (Таджикистан)</option>
+            <option value="+993">+993 (Туркменистан)</option>
+            <option value="+998">+998 (Узбекистан)</option>
+            <option value="+1">+1 (США/Канада)</option>
+            <option value="+44">+44 (Великобритания)</option>
+            <option value="+49">+49 (Германия)</option>
+            <option value="+33">+33 (Франция)</option>
+            <option value="+39">+39 (Италия)</option>
+            <option value="+34">+34 (Испания)</option>
+            <option value="+31">+31 (Нидерланды)</option>
+            <option value="+41">+41 (Швейцария)</option>
+            <option value="+43">+43 (Австрия)</option>
+            <option value="+46">+46 (Швеция)</option>
+            <option value="+47">+47 (Норвегия)</option>
+            <option value="+45">+45 (Дания)</option>
+            <option value="+358">+358 (Финляндия)</option>
+            <option value="+353">+353 (Ирландия)</option>
+            <option value="+32">+32 (Бельгия)</option>
+            <option value="+420">+420 (Чехия)</option>
+            <option value="+421">+421 (Словакия)</option>
+            <option value="+36">+36 (Венгрия)</option>
+            <option value="+48">+48 (Польша)</option>
+            <option value="+421">+421 (Словакия)</option>
+            <option value="+381">+381 (Сербия)</option>
+            <option value="+359">+359 (Болгария)</option>
+            <option value="+40">+40 (Румыния)</option>
+            <option value="+373">+373 (Молдова)</option>
+          </select>
+          <input type="tel" id="phone" name="phone" required placeholder="Номер телефона" style="
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+          " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'" oninput="validatePhone(this)">
+        </div>
+        <div id="phoneError" style="color: #dc3545; font-size: 14px; margin-top: 5px; display: none;">
+          Введите корректный номер телефона (только цифры)
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <input type="email" id="email" name="email" required placeholder="Ваш email" style="
           width: 100%;
           padding: 12px;
           border: 2px solid #e0e6ed;
@@ -311,31 +388,6 @@
       </div>
       
       <div style="margin-bottom: 20px;">
-        <label for="phone" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Телефон *</label>
-        <input type="tel" id="phone" name="phone" required style="
-          width: 100%;
-          padding: 12px;
-          border: 2px solid #e0e6ed;
-          border-radius: 8px;
-          font-size: 16px;
-          transition: border-color 0.3s;
-        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
-      </div>
-      
-      <div style="margin-bottom: 20px;">
-        <label for="email" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Email *</label>
-        <input type="email" id="email" name="email" required style="
-          width: 100%;
-          padding: 12px;
-          border: 2px solid #e0e6ed;
-          border-radius: 8px;
-          font-size: 16px;
-          transition: border-color 0.3s;
-        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
-      </div>
-      
-      <div style="margin-bottom: 20px;">
-        <label for="profession" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Сфера деятельности (профессия) *</label>
         <select id="profession" name="profession" required style="
           width: 100%;
           padding: 12px;
@@ -345,7 +397,7 @@
           background: white;
           transition: border-color 0.3s;
         " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
-          <option value="">Выберите сферу деятельности</option>
+          <option value="">Сфера деятельности</option>
           <option value="finance">Финансы</option>
           <option value="logistics">Логистика</option>
           <option value="marketing">Маркетинг</option>
@@ -360,8 +412,7 @@
       </div>
       
       <div style="margin-bottom: 30px;">
-        <label for="experience" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Краткое описание опыта<br><small style="color: #666;">Чем можете быть полезны проекту?</small></label>
-        <textarea id="experience" name="experience" rows="4" required style="
+        <textarea id="experience" name="experience" rows="4" required placeholder="Кратко расскажите о своем опыте и как можете помочь проектам Business BIOM" style="
           width: 100%;
           padding: 12px;
           border: 2px solid #e0e6ed;
@@ -370,7 +421,7 @@
           resize: vertical;
           font-family: inherit;
           transition: border-color 0.3s;
-        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'" placeholder="Расскажите о своем опыте, навыках и том, как можете помочь проектам Business BIOM..."></textarea>
+        " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'"></textarea>
       </div>
       
       <button type="submit" style="
@@ -432,10 +483,80 @@
     margin-top: 20px;
     display: inline-block;
   }
+  
+  #partnershipModal {
+    padding: 10px 0 !important;
+  }
+  
+  #partnershipModal > div {
+    margin: 10px auto !important;
+    max-height: 95vh !important;
+    width: 95% !important;
+  }
+  
+  #partnershipForm {
+    padding: 20px !important;
+  }
+  
+  #partnershipModal > div > div:first-child {
+    padding: 15px !important;
+  }
+  
+  #partnershipModal > div > div:first-child h2 {
+    font-size: 20px !important;
+  }
 }
 </style>
 
 <script>
+// Функция валидации телефона
+function validatePhone(input) {
+  const phone = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
+  const phoneError = document.getElementById('phoneError');
+  const countryCode = document.getElementById('countryCode').value;
+  
+  // Для России (+7) проверяем 10 цифр, для остальных - от 7 до 12 цифр
+  let minLength = countryCode === '+7' ? 10 : 7;
+  let maxLength = countryCode === '+7' ? 10 : 12;
+  
+  if (phone.length < minLength || phone.length > maxLength) {
+    phoneError.style.display = 'block';
+    phoneError.textContent = `Введите корректный номер (${minLength}-${maxLength} цифр)`;
+    input.style.borderColor = '#dc3545';
+    return false;
+  } else {
+    phoneError.style.display = 'none';
+    input.style.borderColor = '#e0e6ed';
+    return true;
+  }
+}
+
+// Функция форматирования телефона при вводе
+function formatPhone(input) {
+  const countryCode = document.getElementById('countryCode').value;
+  let value = input.value.replace(/\D/g, '');
+  
+  if (countryCode === '+7') {
+    // Форматирование для России: (XXX) XXX-XX-XX
+    if (value.length > 0) {
+      if (value.length <= 3) {
+        value = `(${value}`;
+      } else if (value.length <= 6) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+      } else if (value.length <= 8) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+      } else {
+        value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 8)}-${value.slice(8, 10)}`;
+      }
+    }
+    input.maxLength = 18; // (XXX) XXX-XX-XX + пробелы
+  } else {
+    input.maxLength = 20; // Для остальных стран
+  }
+  
+  input.value = value;
+}
+
 // Обработчики для модального окна
 document.addEventListener('DOMContentLoaded', function() {
   const modal = document.getElementById('partnershipModal');
@@ -443,6 +564,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeBtn = document.getElementById('closeModal');
   const form = document.getElementById('partnershipForm');
   const successMessage = document.getElementById('successMessage');
+  const phoneInput = document.getElementById('phone');
+  const countryCodeSelect = document.getElementById('countryCode');
 
   // Открытие модального окна
   btn.addEventListener('click', function() {
@@ -472,16 +595,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // Обработка смены кода страны
+  countryCodeSelect.addEventListener('change', function() {
+    // Очищаем поле телефона при смене страны
+    phoneInput.value = '';
+    validatePhone(phoneInput);
+  });
+
+  // Валидация телефона при вводе
+  phoneInput.addEventListener('input', function() {
+    formatPhone(this);
+    validatePhone(this);
+  });
+
   // Обработка отправки формы
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+    
+    // Валидация телефона
+    if (!validatePhone(phoneInput)) {
+      phoneInput.focus();
+      return;
+    }
     
     // Получаем данные формы
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     
+    // Формируем полный номер телефона без форматирования для таблиц
+    const countryCode = countryCodeSelect.value;
+    const phone = phoneInput.value.replace(/\D/g, '');
+    const fullPhone = countryCode + phone;
+    
+    // Обновляем данные
+    data.phone = fullPhone;
+    data.countryCode = countryCode;
+    
     // Здесь можно добавить отправку данных на сервер
-    console.log('Данные формы:', data);
+    // Например, в Google Sheets через Google Apps Script
+    // или в Яндекс.Формы
+    
+    console.log('Данные формы для отправки:', data);
     
     // Показываем сообщение об успехе
     form.style.display = 'none';
