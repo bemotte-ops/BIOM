@@ -84,8 +84,8 @@ section[id] {
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: auto;
 }
 
 .site-title {
@@ -297,7 +297,7 @@ input[type="radio"] {
   
   .header-left .logo {
     width: 32px !important; /* Размер логотипа */
-    height: 32px !important;
+    height: auto !important;
   }
   
   .header-left .site-title {
@@ -314,7 +314,7 @@ input[type="radio"] {
     gap: 4px;
     max-width: 50%;
   }
-
+  
   .header-right .btn {
     padding: 6px 10px !important;
     font-size: 11px !important;
@@ -401,7 +401,7 @@ input[type="radio"] {
   .block {
     padding: 20px 20px;
   }
-
+  
   h1 { font-size: 28px; }
   h2 { font-size: 24px; }
   h3 { font-size: 20px; }
@@ -948,7 +948,7 @@ input[type="radio"] {
     line-height: 1.6 !important;
     margin-bottom: 16px !important;
   }
-  
+
   /* Исправляем списки */
   ul, ol {
     padding-left: 20px !important;
