@@ -679,6 +679,22 @@ input[type="radio"] {
   color: #333;
 }
 
+/* Стили для логотипа на странице Icon People */
+@media (max-width: 768px) {
+  .block img[src="logoIP.png"] {
+    width: 120px !important;
+    height: auto !important;
+    margin: 0 auto 20px auto !important;
+    display: block !important;
+  }
+  
+  .block img[src="logoIP.png"] + p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    padding: 0 16px !important;
+  }
+}
+
 /* Стили для мобильной версии блоков BIOM */
 @media (max-width: 768px) {
   .biom-blocks {
@@ -1139,6 +1155,7 @@ input[type="radio"] {
     text-align: center !important;
     white-space: normal !important;
   }
+}
 }
   
 /* Страница О нас - мобильная версия */
