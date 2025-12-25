@@ -84,7 +84,7 @@ section[id] {
 }
 
 .logo {
-  width: 50px;
+  width: 100px;
   height: auto;
 }
 
@@ -296,7 +296,7 @@ input[type="radio"] {
   }
   
   .header-left .logo {
-    width: 32px !important; /* Размер логотипа */
+    width: 64px !important; /* Размер логотипа */
     height: auto !important;
   }
   
@@ -673,9 +673,9 @@ input[type="radio"] {
   }
   
   .biom-letter {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
   }
   
   .biom-text h3 {
@@ -931,9 +931,9 @@ input[type="radio"] {
   }
   
   .biom-letter {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
   }
   
   .biom-text h3 {
@@ -942,6 +942,15 @@ input[type="radio"] {
   
   .biom-text p {
     font-size: 13px;
+  }
+  
+  /* Стили для кнопки О нас в мобильной версии */
+  .btn[href="about.html"] {
+    width: 100% !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
+    padding: 14px 24px !important;
+    font-size: 16px !important;
   }
 }
 
@@ -964,8 +973,8 @@ input[type="radio"] {
     position: relative !important;
     display: block !important;
     margin: 0 !important;
-    width: 80px !important;
-    height: 80px !important;
+    width: 160px !important;
+    height: 160px !important;
     flex-shrink: 0 !important;
   }
   
@@ -988,7 +997,7 @@ input[type="radio"] {
     white-space: nowrap !important;
     text-align: center !important;
   }
-  
+
   #about .block > div:first-child > div:last-child {
     position: absolute !important;
     bottom: -120px !important;
@@ -1017,8 +1026,8 @@ input[type="radio"] {
     position: relative !important;
     display: block !important;
     margin: 0 !important;
-    width: 80px !important;
-    height: 80px !important;
+    width: 160px !important;
+    height: 160px !important;
     flex-shrink: 0 !important;
   }
   
