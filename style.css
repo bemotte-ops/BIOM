@@ -969,14 +969,7 @@ input[type="radio"] {
     gap: 16px !important;
   }
   
-  #about .block > div:first-child img {
-    position: relative !important;
-    display: block !important;
-    margin: 0 !important;
-    width: 160px !important;
-    height: auto !important;
-    flex-shrink: 0 !important;
-  }
+  
   
   #about .block > div:first-child > div:first-child {
     position: relative !important;

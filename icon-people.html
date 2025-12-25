@@ -223,7 +223,7 @@
   <div style="
     position: relative;
     margin: 0 auto;
-    width: 90%;
+    width: 95%;
     max-width: 500px;
     background: white;
     border-radius: 16px;
@@ -294,7 +294,8 @@
             font-size: 16px;
             background: white;
             transition: border-color 0.3s;
-            min-width: 120px;
+            min-width: 100px;
+            max-width: 120px;
           " onfocus="this.style.borderColor='#0D6E85'" onblur="this.style.borderColor='#e0e6ed'">
             <option value="+7" selected>+7 (Россия)</option>
             <option value="+375">+375 (Беларусь)</option>
@@ -445,6 +446,96 @@
 .partnership-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(13, 110, 133, 0.4) !important;
+}
+
+/* Мобильные стили для модального окна партнерства */
+@media (max-width: 768px) {
+  #partnershipModal {
+    padding: 10px 5px !important;
+  }
+  
+  #partnershipModal > div {
+    width: 95% !important;
+    max-width: none !important;
+    margin: 5px auto !important;
+    max-height: 95vh !important;
+  }
+  
+  #partnershipForm {
+    padding: 20px 15px !important;
+  }
+  
+  #partnershipModal > div > div:first-child {
+    padding: 15px !important;
+  }
+  
+  #partnershipModal > div > div:first-child h2 {
+    font-size: 20px !important;
+    margin-right: 40px !important;
+  }
+  
+  #partnershipModal > div > div:first-child #closeModal {
+    right: 10px !important;
+    font-size: 20px !important;
+  }
+  
+  /* Поле телефона - делаем его вертикальным на мобильном */
+  #partnershipModal form > div:nth-child(3) > div {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  
+  #partnershipModal form > div:nth-child(3) > div select {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+  
+  #partnershipModal form > div:nth-child(3) > div input {
+    width: 100% !important;
+  }
+  
+  /* Уменьшаем отступы для всех элементов формы */
+  #partnershipModal input,
+  #partnershipModal select,
+  #partnershipModal textarea {
+    padding: 10px !important;
+    font-size: 16px !important;
+  }
+  
+  #partnershipModal textarea {
+    min-height: 80px !important;
+  }
+}
+
+/* Дополнительные стили для очень маленьких экранов */
+@media (max-width: 375px) {
+  #partnershipModal {
+    padding: 5px 2px !important;
+  }
+  
+  #partnershipModal > div {
+    width: 98% !important;
+    margin: 2px auto !important;
+  }
+  
+  #partnershipForm {
+    padding: 15px 10px !important;
+  }
+  
+  #partnershipModal > div > div:first-child {
+    padding: 12px !important;
+  }
+  
+  #partnershipModal > div > div:first-child h2 {
+    font-size: 18px !important;
+  }
+  
+  #partnershipModal input,
+  #partnershipModal select,
+  #partnershipModal textarea {
+    padding: 8px !important;
+    font-size: 15px !important;
+  }
 }
 </style>
 
