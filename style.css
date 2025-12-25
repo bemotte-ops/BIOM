@@ -974,7 +974,7 @@ input[type="radio"] {
     display: block !important;
     margin: 0 !important;
     width: 160px !important;
-    height: 160px !important;
+    height: auto !important;
     flex-shrink: 0 !important;
   }
   
@@ -1027,7 +1027,7 @@ input[type="radio"] {
     display: block !important;
     margin: 0 !important;
     width: 160px !important;
-    height: 160px !important;
+    height: auto !important;
     flex-shrink: 0 !important;
   }
   
