@@ -786,3 +786,84 @@ input[type="radio"] {
     margin-bottom: 12px;
   }
 }
+
+/* Стили для мобильной версии страниц О нас и Icon People */
+@media (max-width: 768px) {
+  /* Страница О нас */
+  #about .block > div:first-child {
+    position: relative !important;
+    height: auto !important;
+    min-height: 300px !important;
+  }
+  
+  #about .block > div:first-child img {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100px !important;
+    height: 100px !important;
+    margin: 0 auto 20px auto !important;
+    display: block !important;
+  }
+  
+  #about .block > div:first-child > div:first-child {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    margin: 0 auto 20px auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  
+  #about .block > div:first-child > div:first-child .btn {
+    width: 100% !important;
+    max-width: 200px !important;
+    margin: 0 auto !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+  }
+  
+  #about .block > div:first-child > div:last-child {
+    margin-top: 20px !important;
+    text-align: center !important;
+  }
+  
+  /* Страница Icon People */
+  .block > div:first-child {
+    position: relative !important;
+    height: auto !important;
+    min-height: 300px !important;
+  }
+  
+  .block > div:first-child img {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100px !important;
+    height: 100px !important;
+    margin: 0 auto 20px auto !important;
+    display: block !important;
+  }
+  
+  .block > div:first-child > div:first-child {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    margin: 0 auto 20px auto !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+  
+  .block > div:first-child > div:last-child {
+    margin-top: 20px !important;
+    text-align: center !important;
+  }
+  
+  /* Убираем нумерацию в разделе команды */
+  .factor-number {
+    display: none !important;
+  }
+}
