@@ -60,6 +60,7 @@
         position: absolute;
         top: 0;
         right: 20px;
+        z-index: 10;
         background: linear-gradient(135deg, #0D6E85, #48426C);
         color: white;
         border: none;
@@ -539,17 +540,29 @@ document.addEventListener('DOMContentLoaded', function() {
   const phoneInput = document.getElementById('phone');
   const countryCodeSelect = document.getElementById('countryCode');
 
+  // Проверяем наличие всех необходимых элементов
+  if (!modal || !btn) {
+    console.error('Не найдены элементы модального окна или кнопки');
+    return;
+  }
+
+  console.log('Модальное окно партнерства инициализировано');
+
   // Открытие модального окна
-  btn.addEventListener('click', function() {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('Кнопка Партнерство нажата');
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
   });
-
+    
   // Закрытие модального окна
-  closeBtn.addEventListener('click', function() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-  });
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+  }
 
   // Закрытие при клике вне модального окна
   modal.addEventListener('click', function(e) {
@@ -568,60 +581,66 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Обработка смены кода страны
-  countryCodeSelect.addEventListener('change', function() {
-    // Очищаем поле телефона при смене страны
-    phoneInput.value = '';
-    validatePhone(phoneInput);
-  });
+  if (countryCodeSelect) {
+    countryCodeSelect.addEventListener('change', function() {
+      // Очищаем поле телефона при смене страны
+      phoneInput.value = '';
+      validatePhone(phoneInput);
+    });
+  }
 
   // Валидация телефона при вводе
-  phoneInput.addEventListener('input', function() {
-    formatPhone(this);
-    validatePhone(this);
-  });
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function() {
+      formatPhone(this);
+      validatePhone(this);
+    });
+  }
 
   // Обработка отправки формы
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Валидация телефона
-    if (!validatePhone(phoneInput)) {
-      phoneInput.focus();
-      return;
-    }
-    
-    // Получаем данные формы
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    
-    // Формируем полный номер телефона без форматирования для таблиц
-    const countryCode = countryCodeSelect.value;
-    const phone = phoneInput.value.replace(/\D/g, '');
-    const fullPhone = countryCode + phone;
-    
-    // Обновляем данные
-    data.phone = fullPhone;
-    data.countryCode = countryCode;
-    
-    // Здесь можно добавить отправку данных на сервер
-    // Например, в Google Sheets через Google Apps Script
-    // или в Яндекс.Формы
-    
-    console.log('Данные формы для отправки:', data);
-    
-    // Показываем сообщение об успехе
-    form.style.display = 'none';
-    successMessage.style.display = 'block';
-    
-    // Автоматическое закрытие через 5 секунд
-    setTimeout(function() {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-      form.style.display = 'block';
-      successMessage.style.display = 'none';
-      form.reset();
-    }, 5000);
-  });
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Валидация телефона
+      if (!validatePhone(phoneInput)) {
+        phoneInput.focus();
+        return;
+      }
+      
+      // Получаем данные формы
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+      
+      // Формируем полный номер телефона без форматирования для таблиц
+      const countryCode = countryCodeSelect.value;
+      const phone = phoneInput.value.replace(/\D/g, '');
+      const fullPhone = countryCode + phone;
+      
+      // Обновляем данные
+      data.phone = fullPhone;
+      data.countryCode = countryCode;
+      
+      // Здесь можно добавить отправку данных на сервер
+      // Например, в Google Sheets через Google Apps Script
+      // или в Яндекс.Формы
+      
+      console.log('Данные формы для отправки:', data);
+      
+      // Показываем сообщение об успехе
+      form.style.display = 'none';
+      successMessage.style.display = 'block';
+      
+      // Автоматическое закрытие через 5 секунд
+      setTimeout(function() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        form.style.display = 'block';
+        successMessage.style.display = 'none';
+        form.reset();
+      }, 5000);
+    });
+  }
 });
 </script>
 
