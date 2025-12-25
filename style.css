@@ -788,38 +788,36 @@ input[type="radio"] {
 }
 
 /* Стили для мобильной версии страниц О нас и Icon People */
+
+/* Страница О нас - мобильная версия */
 @media (max-width: 768px) {
-  /* Страница О нас */
   #about .block > div:first-child {
     position: relative !important;
     height: auto !important;
-    min-height: 200px !important;
+    min-height: auto !important;
     display: flex !important;
-    align-items: flex-start !important;
+    align-items: center !important;
     justify-content: space-between !important;
+    padding: 20px 16px !important;
     gap: 16px !important;
-    padding: 20px 0 !important;
   }
   
   #about .block > div:first-child img {
     position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
+    display: block !important;
+    margin: 0 !important;
     width: 80px !important;
     height: 80px !important;
-    margin: 0 !important;
     flex-shrink: 0 !important;
   }
   
   #about .block > div:first-child > div:first-child {
     position: relative !important;
-    top: 0 !important;
-    right: 0 !important;
-    margin: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 8px !important;
     width: auto !important;
+    max-width: 140px !important;
     flex-shrink: 0 !important;
   }
   
@@ -827,57 +825,76 @@ input[type="radio"] {
     width: auto !important;
     max-width: none !important;
     margin: 0 !important;
-    padding: 8px 16px !important;
-    font-size: 13px !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
     white-space: nowrap !important;
+    text-align: center !important;
   }
   
   #about .block > div:first-child > div:last-child {
-    margin-top: 40px !important;
+    position: absolute !important;
+    bottom: -120px !important;
+    left: 16px !important;
+    right: 16px !important;
     text-align: center !important;
-    width: 100% !important;
+    width: auto !important;
+    margin: 0 !important;
   }
+}
   
-  /* Страница Icon People */
+/* Страница Icon People - мобильная версия */
+@media (max-width: 768px) {
   .block > div:first-child {
     position: relative !important;
     height: auto !important;
-    min-height: 200px !important;
+    min-height: auto !important;
     display: flex !important;
-    align-items: flex-start !important;
+    align-items: center !important;
     justify-content: space-between !important;
+    padding: 20px 16px !important;
     gap: 16px !important;
-    padding: 20px 0 !important;
   }
   
   .block > div:first-child img {
     position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
+    display: block !important;
+    margin: 0 !important;
     width: 80px !important;
     height: 80px !important;
-    margin: 0 !important;
     flex-shrink: 0 !important;
   }
   
   .block > div:first-child > div:first-child {
     position: relative !important;
-    top: 0 !important;
-    right: 0 !important;
-    margin: 0 !important;
     display: block !important;
     width: auto !important;
-    text-align: left !important;
     flex-shrink: 0 !important;
   }
   
   .block > div:first-child > div:last-child {
-    margin-top: 40px !important;
+    position: absolute !important;
+    bottom: -100px !important;
+    left: 16px !important;
+    right: 16px !important;
     text-align: center !important;
-    width: 100% !important;
+    width: auto !important;
+    margin: 0 !important;
   }
   
-  /* Исправление для кнопок в обычной версии */
+  /* Кнопка Партнерство в мобильной версии */
+  .partnership-btn {
+    position: relative !important;
+    display: inline-block !important;
+    width: auto !important;
+    max-width: 120px !important;
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    text-align: center !important;
+  }
+}
+
+/* Исправление для кнопок в обычной версии */
 @media (min-width: 769px) {
   /* Страница О нас - кнопки справа */
   #about .block > div:first-child > div:first-child {
@@ -896,22 +913,51 @@ input[type="radio"] {
   }
 }
 
-/* Стиль для кнопки Партнерство в мобильной версии */
+/* Дополнительные исправления для мобильных устройств */
 @media (max-width: 768px) {
-  .partnership-btn {
-    position: relative !important;
-    top: 0 !important;
-    right: 0 !important;
-    margin: 0 !important;
-    display: inline-block !important;
-    width: auto !important;
-    max-width: none !important;
-    padding: 8px 16px !important;
-    font-size: 13px !important;
-  }
-
   /* Убираем нумерацию в разделе команды */
   .factor-number {
     display: none !important;
   }
-}
+  
+  /* Исправляем отступы для текста */
+  .block {
+    padding: 20px 16px !important;
+    margin: 20px 16px !important;
+  }
+  
+  /* Исправляем заголовки */
+  h1 {
+    font-size: 28px !important;
+    margin: 16px 0 !important;
+  }
+  
+  h2 {
+    font-size: 24px !important;
+    margin: 16px 0 !important;
+  }
+  
+  h3 {
+    font-size: 20px !important;
+    margin: 12px 0 !important;
+  }
+  
+  /* Исправляем текст */
+  p {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 16px !important;
+  }
+  
+  /* Исправляем списки */
+  ul, ol {
+    padding-left: 20px !important;
+    margin: 16px 0 !important;
+  }
+  
+  li {
+    margin-bottom: 8px !important;
+    font-size: 16px !important;
+  }
+  
+  
