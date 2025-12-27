@@ -695,6 +695,35 @@ input[type="radio"] {
   }
 }
 
+/* Базовые стили для кнопки Партнерство */
+.partnership-btn {
+  background: linear-gradient(135deg, #0D6E85, #48426C) !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  font-size: 16px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.3s !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(13, 110, 133, 0.3) !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+}
+
+.partnership-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(13, 110, 133, 0.4) !important;
+}
+
+/* Стили для кнопки Партнерство на странице Icon People */
+#partnershipBtn {
+  margin-top: 32px !important;
+}
+
 /* Стили для мобильной версии блоков BIOM */
 @media (max-width: 768px) {
   .biom-blocks {
@@ -998,6 +1027,18 @@ input[type="radio"] {
     font-size: 16px !important;
     white-space: normal !important;
     text-align: center !important;
+  }
+  
+  /* Стили для кнопки Партнерство в мобильной версии */
+  .partnership-btn {
+    width: 100% !important;
+    max-width: 280px !important;
+    margin: 0 auto !important;
+    padding: 14px 20px !important;
+    font-size: 16px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    display: block !important;
   }
 }
   
